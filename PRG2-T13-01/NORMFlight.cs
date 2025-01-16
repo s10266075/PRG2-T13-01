@@ -27,5 +27,10 @@ namespace PRG2_T13_01
                 return 0.0;
             }
         }
+        public override string ToString()
+        {
+            return base.ToString() + ", Type: Normal Flight";
+        }
+
     }
 }
