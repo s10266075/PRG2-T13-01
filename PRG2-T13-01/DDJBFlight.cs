@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace PRG2_T13_01
 {
-    class LWTTFlight:Flight
+    class DDJBFlight : Flight
     {
         public double RequestFee { get; set; }
-        public LWTTFlight(string fn, string o, string d, DateTime et, string s, double rf) : base(fn, o, d, et, s)
+        public DDJBFlight(string fn, string o, string d, DateTime et, string s, double rf) : base(fn, o, d, et, s)
         {
             RequestFee = rf;
         }
         public override double CalculateFees()
         {
-            RequestFee = 500;
+            RequestFee = 300;
             if (Origin == "Singapore")
             {
                 double fees = RequestFee + 800;
@@ -33,8 +33,8 @@ namespace PRG2_T13_01
         }
         public override string ToString()
         {
-            return base.ToString() + $", Type: LWTT Flight, Additional Fee: {RequestFee}";
+            return base.ToString() + $", Type: DDJB Flight, Additional Fee: {RequestFee}";
         }
-
     }
 }
+    
