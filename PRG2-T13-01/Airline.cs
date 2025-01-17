@@ -18,9 +18,14 @@ namespace PRG2_T13_01
             Name = name;
             Flights = new Dictionary<string, Flight>();
         }
-        public void AddFlight(Flight flight)
+        public bool AddFlight(Flight flight)
         {
-            Flights[flight.FlightNumber] = flight;
+            if (!Flights.ContainsKey(flight.FlightNumber))
+            {
+                Flights[flight.FlightNumber] = flight;
+                return true;
+            }
+            return false;
         }
         public double CalculateFees()
         {
@@ -31,6 +36,10 @@ namespace PRG2_T13_01
             }
             return fees;
 
+        }
+        public bool RemoveFlight(Flight flight)
+        {
+            return Flights.Remove(flight.FlightNumber);
         }
         public override string ToString()
         {
