@@ -23,8 +23,16 @@ namespace PRG2_T13_01
             }
             else if (Destination == "Singapore")
             {
-                double fees = RequestFee + 500;
-                return fees;
+                if (Origin == "Dubai" || Origin == "Bangkok" || Origin == "Tokyo")
+                {
+                    double fees = RequestFee + 500 - 25;
+                    return fees;
+                }
+                else
+                {
+                    double fees = RequestFee + 500;
+                    return fees;
+                }
             }
             else
             {
