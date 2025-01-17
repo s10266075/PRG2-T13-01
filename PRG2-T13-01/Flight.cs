@@ -13,6 +13,7 @@ namespace PRG2_T13_01
         public string Destination { get; set; }
         public DateTime ExpectedTime { get; set; }
         public string Status { get; set; }
+
         public Flight (string fn, string o, string d, DateTime et, string s) 
         {
             FlightNumber = fn;
