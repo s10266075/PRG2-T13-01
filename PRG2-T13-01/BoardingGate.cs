@@ -25,15 +25,15 @@ namespace PRG2_T13_01
         public BoardingGate() { }
         public double CalculateFees()
         {
-            if (Flight is CFFTFlight)
+            if (Flight is CFFTFlight&&SupportsCFFT)
             {
                 return Flight.CalculateFees() + 300.00+150.00;
             }
-            else if (Flight is DDJBFlight)
+            else if (Flight is DDJBFlight&&SupportsDDJB)
             {
                 return Flight.CalculateFees() + 300.00+300.00;
             }
-            else if (Flight is LWTTFlight)
+            else if (Flight is LWTTFlight&&SupportsLWTT)
             {
                 return Flight.CalculateFees() + 300.00+500.00;
             }
