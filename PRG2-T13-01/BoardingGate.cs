@@ -27,15 +27,15 @@ namespace PRG2_T13_01
         {
             if (Flight is CFFTFlight)
             {
-                return Flight.CalculateFees() + 300.00;
+                return Flight.CalculateFees() + 300.00+150.00;
             }
             else if (Flight is DDJBFlight)
             {
-                return Flight.CalculateFees() + 300.00;
+                return Flight.CalculateFees() + 300.00+300.00;
             }
             else if (Flight is LWTTFlight)
             {
-                return Flight.CalculateFees() + 300.00;
+                return Flight.CalculateFees() + 300.00+500.00;
             }
             else if (Flight is NORMFlight)
             {
