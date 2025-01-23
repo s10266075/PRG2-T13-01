@@ -3,21 +3,24 @@ using PRG2_T13_01;
 
 Dictionary<string, Airline> airlineDict = new Dictionary<string, Airline>();
 Dictionary<string, BoardingGate> boardingGatesDict = new Dictionary<string, BoardingGate>();
-
-using (StreamReader sr = new StreamReader("airlines.csv"))
+void LoadAirlines()
 {
-    sr.ReadLine();
-    string line;
-    while ((line = sr.ReadLine()) != null)
+    using (StreamReader sr = new StreamReader("airlines.csv"))
     {
-        string[] parts = line.Split(',');
-        string code = parts[1];
-        string name = parts[0];
-        Airline addairline = new Airline(code, name);
-        airlineDict.Add(code, addairline);
+        sr.ReadLine();
+        string line;
+        while ((line = sr.ReadLine()) != null)
+        {
+            string[] parts = line.Split(',');
+            string code = parts[1];
+            string name = parts[0];
+            Airline addairline = new Airline(code, name);
+            airlineDict.Add(code, addairline);
+        }
+
     }
 }
-
+//feature 1
 void LoadBoardingGates()
 {
     using (StreamReader sr = new StreamReader("boardinggates.csv"))
@@ -38,4 +41,6 @@ void LoadBoardingGates()
         }
     }
 }
+
+//feature 4
 
