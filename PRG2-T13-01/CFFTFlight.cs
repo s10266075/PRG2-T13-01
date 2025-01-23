@@ -9,7 +9,7 @@ namespace PRG2_T13_01
     class CFFTFlight : Flight
     {
         public double RequestFee { get; set; }
-        public CFFTFlight(string fn, string o, string d, DateTime et, string s, double rf) : base(fn, o, d, et, s)
+        public CFFTFlight(string fn, string o, string d, DateTime et, string s, double rf = 150) : base(fn, o, d, et, s)
         {
             RequestFee = rf;
         }
