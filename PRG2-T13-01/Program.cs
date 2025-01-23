@@ -66,7 +66,7 @@ void LoadFlights()
             string? requestCode = parts[4];
             if (requestCode == "DDJB")
             {
-                DDJBFlight addFlight = new Flight(flightnum, origin, Destination, expectedTime, );
+                Flight addFlight = new DDJBFlight(flightnum, origin, Destination, expectedTime);
 
                 flightDict.Add(flightnum, addFlight);
             }

@@ -21,7 +21,7 @@ namespace PRG2_T13_01
             Origin = o;
             Destination = d;
             ExpectedTime = et;
-            Status = s;    
+            Status = "Scheduled";    
         }
         public virtual double CalculateFees() { return 0.0; }
         public override string ToString()
