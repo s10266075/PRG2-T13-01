@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 using PRG2_T13_01;
 
 Dictionary<string, Airline> airlineDict = new Dictionary<string, Airline>();
