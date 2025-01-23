@@ -27,7 +27,7 @@ namespace PRG2_T13_01
             }
             return false;
         }
-        public double CalculateFees()
+        /*public double CalculateFees()
         {
             double fees = 0;
             foreach (Flight flight in Flights.Values)
@@ -36,7 +36,7 @@ namespace PRG2_T13_01
             }
             return fees;
 
-        }
+        }*/
         public bool RemoveFlight(Flight flight)
         {
             return Flights.Remove(flight.FlightNumber);
