@@ -25,17 +25,17 @@ namespace PRG2_T13_01
         public BoardingGate() { }
         public double CalculateFees()
         {
-            if (Flight is CFFTFlight)
+            if (Flight is CFFTFlight&&SupportsCFFT)
             {
-                return Flight.CalculateFees() + 300.00;
+                return Flight.CalculateFees() + 300.00+150.00;
             }
-            else if (Flight is DDJBFlight)
+            else if (Flight is DDJBFlight&&SupportsDDJB)
             {
-                return Flight.CalculateFees() + 300.00;
+                return Flight.CalculateFees() + 300.00+300.00;
             }
-            else if (Flight is LWTTFlight)
+            else if (Flight is LWTTFlight&&SupportsLWTT)
             {
-                return Flight.CalculateFees() + 300.00;
+                return Flight.CalculateFees() + 300.00+500.00;
             }
             else if (Flight is NORMFlight)
             {
@@ -45,6 +45,10 @@ namespace PRG2_T13_01
             {
                 return 0.0;
             }
+        }
+        public override string ToString()
+        {
+            return "Gate Name: " + GateName + "\nSupports CFFT: " + SupportsCFFT + "\nSupports DDJB: " + SupportsDDJB + "\nSupports LWTT: " + SupportsLWTT + "\nFlight: " + Flight;
         }
     }
 }

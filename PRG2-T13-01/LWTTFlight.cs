@@ -18,17 +18,38 @@ namespace PRG2_T13_01
 
             if (Origin == "Singapore")
             {
-                return RequestFee + 800;
+                if (ExpectedTime.Hour < 11 || ExpectedTime.Hour > 21)
+                {
+                    return RequestFee+800-110; // Discount applied for flights arriving or departing outside of peak hours.
+                }
+                else
+                {
+                    return RequestFee + 800;
+                }    
             }
             else if (Destination == "Singapore")
             {
                 if (Origin == "Dubai" || Origin == "Bangkok" || Origin == "Tokyo")
                 {
-                    return RequestFee + 500 - 25; // Discount applied for specific origins.
+                    if (ExpectedTime.Hour < 11 || ExpectedTime.Hour > 21)
+                    {
+                        return RequestFee + 500 - 110 - 25; // Discount applied for flights arriving or departing outside of peak hours.
+                    }
+                    else
+                    {
+                        return RequestFee + 500 - 25;
+                    }
                 }
                 else
                 {
-                    return RequestFee + 500; // General case for other origins.
+                    if (ExpectedTime.Hour < 11 || ExpectedTime.Hour > 21)
+                    {
+                        return RequestFee + 500 - 110; // Discount applied for flights arriving or departing outside of peak hours.
+                    }
+                    else
+                    {
+                        return RequestFee + 500;
+                    }
                 }
             }
             else
