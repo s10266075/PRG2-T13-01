@@ -46,5 +46,9 @@ namespace PRG2_T13_01
                 return 0.0;
             }
         }
+        public override string ToString()
+        {
+            return "Gate Name: " + GateName + "\nSupports CFFT: " + SupportsCFFT + "\nSupports DDJB: " + SupportsDDJB + "\nSupports LWTT: " + SupportsLWTT + "\nFlight: " + Flight;
+        }
     }
 }
