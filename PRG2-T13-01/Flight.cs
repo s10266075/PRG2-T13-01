@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PRG2_T13_01
 {
-    class Flight
+    abstract class Flight
     {
         public string FlightNumber { get; set; }
         public string Origin { get; set; }
@@ -15,13 +15,13 @@ namespace PRG2_T13_01
         public DateTime ExpectedTime { get; set; }
         public string Status { get; set; }
 
-        public Flight (string fn, string o, string d, DateTime et, string s) 
+        public Flight (string fn, string o, string d, DateTime et, string s = "Scheduled") 
         {
             FlightNumber = fn;
             Origin = o;
             Destination = d;
             ExpectedTime = et;
-            Status = "Scheduled";    
+            Status = s;    
         }
         public virtual double CalculateFees() { return 0.0; }
         public override string ToString()
