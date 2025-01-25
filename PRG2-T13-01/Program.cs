@@ -559,7 +559,8 @@ while (true)
     }
     else if (choice == 2)
     {
-        ListAllBoardingGates();
+        
+        ListAllBoardingGates(boardingGatesDict);
     }
     else if (choice == 3)
     {
