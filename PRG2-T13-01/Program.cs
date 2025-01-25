@@ -556,7 +556,7 @@ while (true)
     }
     else if (choice == 2)
     {
-        Console.WriteLine();
+        ListAllBoardingGates();
     }
     else if (choice == 3)
     {
