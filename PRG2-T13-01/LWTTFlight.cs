@@ -6,16 +6,14 @@ namespace PRG2_T13_01
     {
         public double RequestFee { get; set; }
 
-        public LWTTFlight(string fn, string o, string d, DateTime et, string s, double rf) 
-            : base(fn, o, d, et, s)
+        public LWTTFlight(string fn, string o, string d, DateTime et, double rf = 500) 
+            : base(fn, o, d, et)
         {
             RequestFee = rf;
         }
 
         public override double CalculateFees()
         {
-            RequestFee = 500;
-
             if (Origin == "Singapore")
             {
                 if (ExpectedTime.Hour < 11 || ExpectedTime.Hour > 21)

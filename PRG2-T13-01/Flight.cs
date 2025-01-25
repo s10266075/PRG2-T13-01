@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PRG2_T13_01
 {
-    class Flight
+    abstract class Flight:IComparable<Flight>
     {
         public string FlightNumber { get; set; }
         public string Origin { get; set; }
@@ -17,7 +17,7 @@ namespace PRG2_T13_01
         public string SpecialRequestCode { get; set; } 
         public string BoardingGate { get; set; }
 
-        public Flight (string fn, string o, string d, DateTime et, string s) 
+        public Flight (string fn, string o, string d, DateTime et, string s = "Scheduled") 
         {
             FlightNumber = fn;
             Origin = o;
@@ -28,6 +28,10 @@ namespace PRG2_T13_01
             BoardingGate = null;
         }
         public virtual double CalculateFees() { return 0.0; }
+        public int CompareTo(Flight other)
+        {
+            return this.ExpectedTime.CompareTo(other.ExpectedTime);
+        }
         public override string ToString()
         {
             return "Flight Number: " + FlightNumber + "\nOrigin: " + Origin + "\nDestination: " + Destination + "\nExpected Time: " + ExpectedTime + "\nStatus: " + Status;
