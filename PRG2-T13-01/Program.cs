@@ -14,17 +14,21 @@ Terminal terminal = new Terminal("Terminal 5");
 Dictionary<string, Airline> airlineDict = new Dictionary<string, Airline>();
 Dictionary<string, BoardingGate> boardingGatesDict = new Dictionary<string, BoardingGate>();
 
-using (StreamReader sr = new StreamReader("airlines.csv"))
+void LoadAirlines()
 {
-    sr.ReadLine();
-    string line;
-    while ((line = sr.ReadLine()) != null)
+    using (StreamReader sr = new StreamReader("airlines.csv"))
     {
-        string[] parts = line.Split(',');
-        string code = parts[1];
-        string name = parts[0];
-        Airline addairline = new Airline(code, name);
-        airlineDict.Add(code, addairline);
+        sr.ReadLine();
+        string line;
+        while ((line = sr.ReadLine()) != null)
+        {
+            string[] parts = line.Split(',');
+            string code = parts[1];
+            string name = parts[0];
+            Airline addairline = new Airline(code, name);
+            airlineDict.Add(code, addairline);
+            terminal.AddAirline(addairline);
+        }
     }
 }
 
@@ -41,13 +45,15 @@ void LoadBoardingGates()
             bool supportsDDJB = bool.Parse(parts[1]);
             bool supportsCFFT = bool.Parse(parts[2]);
             bool supportsLWTT = bool.Parse(parts[3]);
-            string airlineCode = parts[4];
             Flight gateFlight = null;
             BoardingGate addGate = new BoardingGate(gateName, supportsCFFT, supportsDDJB, supportsLWTT, gateFlight);
             boardingGatesDict.Add(gateName, addGate);
         }
     }
 }
+
+LoadAirlines();
+LoadBoardingGates();
 
 //feature 2
 Dictionary<string, Flight> flightDict = new Dictionary<string, Flight>();
@@ -90,16 +96,17 @@ void LoadFlights()
     }
 }
 
+LoadFlights();
 //feature 3
 void DisplayInfo()
 {
     Console.WriteLine("=============================================\n" +
-        "List of Flights for Changi Airport Terminal 5"+
+        "List of Flights for Changi Airport Terminal 5\n"+
         "=============================================\n") ;
-    Console.WriteLine("{0, -15}{1,-23}{2,-23}{3,-23}{4,-10}","Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
+    Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}","Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
     foreach (KeyValuePair<string, Flight> flight in flightDict)
     {
-        Console.WriteLine("{0, -15}{1,-23}{2,-23}{3,-23}{4,-10}", flight.Key, terminal.GetAirlineFromFlight(flight.Value), flight.Value.Origin, flight.Value.Destination, flight.Value.ExpectedTime);
+        Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}", flight.Key, terminal.GetAirlineFromFlight(flight.Value), flight.Value.Origin, flight.Value.Destination, flight.Value.ExpectedTime);
     }
 }
 
