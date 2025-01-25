@@ -142,7 +142,7 @@ void AssignGateToFlight()
                     {
                         if (choice == "Y")
                         {
-                            Console.WriteLine("1. Delayed\n2.Boarding\n3.On Time\nPlease select the new status of the flight:");
+                            Console.WriteLine("1.Delayed\n2.Boarding\n3.On Time\nPlease select the new status of the flight:");
                             int statuschoice = Convert.ToInt32(Console.ReadLine());
                             if (statuschoice == 1)
                             {
@@ -187,7 +187,7 @@ void AssignGateToFlight()
                     {
                         if (choice == "Y")
                         {
-                            Console.WriteLine("1. Delayed\n2.Boarding\n3.On Time\nPlease select the new status of the flight:");
+                            Console.WriteLine("1.Delayed\n2.Boarding\n3.On Time\nPlease select the new status of the flight:");
                             int statuschoice = Convert.ToInt32(Console.ReadLine());
                             if (statuschoice == 1)
                             {
@@ -232,7 +232,7 @@ void AssignGateToFlight()
                     {
                         if (choice == "Y")
                         {
-                            Console.WriteLine("1. Delayed\n2.Boarding\n3.On Time\nPlease select the new status of the flight:");
+                            Console.WriteLine("1.Delayed\n2.Boarding\n3.On Time\nPlease select the new status of the flight:");
                             int statuschoice = Convert.ToInt32(Console.ReadLine());
                             if (statuschoice == 1)
                             {
@@ -277,7 +277,7 @@ void AssignGateToFlight()
                     {
                         if (choice == "Y")
                         {
-                            Console.WriteLine("1. Delayed\n2.Boarding\n3.On Time\nPlease select the new status of the flight:");
+                            Console.WriteLine("1.Delayed\n2.Boarding\n3.On Time\nPlease select the new status of the flight:");
                             int statuschoice = Convert.ToInt32(Console.ReadLine());
                             if (statuschoice == 1)
                             {
