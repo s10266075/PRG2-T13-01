@@ -246,7 +246,7 @@ void ModifyFlightDetails(Dictionary<string, Airline> airlines)
         Console.WriteLine($"{flight.FlightNumber,-15}{selectedAirline.Name,-30}{flight.Origin,-20}{flight.Destination,-20}{flight.ExpectedTime:dd/MM/yyyy hh:mm tt,-25}");
     }
 }
-=======
+
 LoadAirlines();
 LoadBoardingGates();
 
