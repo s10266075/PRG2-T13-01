@@ -65,7 +65,7 @@ namespace PRG2_T13_01
         }
         public void PrintAirlineFees()
         {
-            Console.WriteLine(this.CalculateFees());
+            Console.WriteLine();
         }
     }
 }
