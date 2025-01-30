@@ -32,18 +32,18 @@ namespace PRG2_T13_01
         public BoardingGate() { }
         public double CalculateFees()
         {
-            if (Flight is CFFTFlight&&SupportsCFFT)
+            double total = 300;
+            if (Flight.Origin == "Singapore (SGP)")
             {
-                return Flight.CalculateFees() + 300.00+150.00;
+                total += 800;
             }
-            else if (Flight is DDJBFlight&&SupportsDDJB)
+            else if (Flight.Destination == "Singapore (SGP)")
             {
-                return Flight.CalculateFees() + 300.00+300.00;
+                total += 500;
             }
-            else
-            {
-                return 0.0;
-            }
+            total+=Flight.CalculateFees();
+            return total;
+
         }
         public override string ToString()
         {

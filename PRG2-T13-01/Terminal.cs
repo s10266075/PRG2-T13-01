@@ -70,6 +70,18 @@ namespace PRG2_T13_01
                 return null;
             }
         }
+        public double CalculateFees()
+        {
+            double discount = 0;
+            foreach (Flight flight in Flights.Values)
+            {
+                if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour > 21)
+                {
+                    discount += (110 + ((flight.CalculateFees() + 800) * 0.03));
+                }
+            }
+            return discount;
+        }
         public void PrintAirlineFees()
         { }
     }
