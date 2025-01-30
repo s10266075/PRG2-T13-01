@@ -40,14 +40,6 @@ namespace PRG2_T13_01
             {
                 return Flight.CalculateFees() + 300.00+300.00;
             }
-            else if (Flight is LWTTFlight&&SupportsLWTT)
-            {
-                return Flight.CalculateFees() + 300.00+500.00;
-            }
-            else if (Flight is NORMFlight)
-            {
-                return Flight.CalculateFees() + 300.00;
-            }
             else
             {
                 return 0.0;
