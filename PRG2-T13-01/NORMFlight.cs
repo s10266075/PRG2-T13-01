@@ -15,7 +15,7 @@ namespace PRG2_T13_01
 {
     class NORMFlight:Flight
     {
-        public NORMFlight(string fn, string o, string d, DateTime et,string s) : base(fn, o, d, et,s) { }
+        public NORMFlight(string fn, string o, string d, DateTime et,string s = "Scheduled") : base(fn, o, d, et,s) { }
         public override double CalculateFees()
         {
             double RequestFee = 0;
