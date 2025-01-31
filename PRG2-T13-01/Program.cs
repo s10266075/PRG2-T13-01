@@ -843,87 +843,6 @@
         }
     }
 
-
-    //feature 9
-    void SortFlights()
-    {
-        List<Flight> sortList = new List<Flight>();
-        foreach (Flight f in flightDict.Values)
-        {
-            sortList.Add(f);
-            sortList.Sort();
-        }
-        Console.WriteLine(" {0, -15}{1,-23}{2,-23}{3,-23}{4,-10}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
-        foreach (Flight f in sortList)
-        {
-            Console.WriteLine(" {0, -15}{1,-23}{2,-23}{3,-23}{4,-10}", f.FlightNumber, terminal.GetAirlineFromFlight(f), f.Origin, f.Destination, f.ExpectedTime);
-        }
-    }
-
-    //advanced feature b
-
-    void DisplayAirlineFees()
-    {
-        terminal.PrintAirlineFees();
-    }
-
-
-
-    //menu
-    while (true)
-    {
-        Console.WriteLine("=============================================\r\n" +
-            "Welcome to Changi Airport Terminal 5\r\n" +
-            "=============================================\r\n" +
-            "1. List All Flights\r\n" +
-            "2. List Boarding Gates\r\n" +
-            "3. Assign a Boarding Gate to a Flight\r\n" +
-            "4. Create Flight\r\n" +
-            "5. Display Airline Flights\r\n" +
-            "6. Modify Flight Details\r\n" +
-            "7. Display Flight Schedule\r\n" +
-            "8. Display Airline Fees\r\n" +
-            "0. Exit\r\n" +
-            "Please select your option:");
-        int choice = int.Parse(Console.ReadLine());
-        if (choice == 1)
-        {
-            DisplayInfo();
-        }
-        else if (choice == 2)
-        { 
-            ListAllBoardingGates(terminal.BoardingGates);
-        }
-        else if (choice == 3)
-        {
-            AssignGateToFlight();
-        }
-        else if (choice == 4)
-        {
-            CreateNewFlight();
-        }
-        else if (choice == 5)
-        {
-            DisplayAirlineFlights(terminal.Airlines, terminal.Flights);
-        }
-        else if (choice == 6)
-        {
-            ModifyFlightDetails(terminal);
-        }
-        else if (choice == 7)
-        {
-            SortFlights();
-        }
-
-    }
-    else
-    {
-        Console.WriteLine("Invalid special request code!");
-        return CreateNewFlight();
-    }
-}
-
-
 //feature 9
 void SortFlights()
 {
@@ -999,12 +918,12 @@ while (true)
         SortFlights();
     }
 
-        else if (choice == 8)
-        {
-            DisplayAirlineFees();
-        }
-        else if (choice == 0)
-        {
-            break;
-        }
+    else if (choice == 8)
+    {
+        DisplayAirlineFees();
     }
+    else if (choice == 0)
+    {
+        break;
+    }
+}
