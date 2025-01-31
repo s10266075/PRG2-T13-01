@@ -632,7 +632,7 @@
                 else if (temp is LWTTFlight)
                 {
                     Console.WriteLine("Special Request Code: LWTT");
-                    Console.WriteLine("Would you like to update the status of the flight? (Y/N)");
+                    Console.WriteLine("Would you like to update the status of the flight? (Y/N):");
                     string choice = Console.ReadLine();
                     while (true)
                     {
@@ -735,104 +735,90 @@
     }
 
     //feature 6
-    Flight CreateNewFlight()
+void CreateNewFlight()
+{
+    Console.Write("Enter the flight number: ");
+    string flightnum = Console.ReadLine();
+    Console.Write("Enter the origin: ");
+    string origin = Console.ReadLine();
+    Console.Write("Enter the destination: ");
+    string destination = Console.ReadLine();
+    Console.Write("Enter the expected departure/arrival time (dd/mm/yyyy hh:mm): ");
+    DateTime expectedTime = DateTime.Parse(Console.ReadLine());
+    Console.Write("Enter the special request code (DDJB/CFFT/LWTT/None): ");
+    string code = Console.ReadLine();
+    if (code == "DDJB")
     {
-        Console.Write("Enter the flight number: ");
-        string flightnum = Console.ReadLine();
-        Console.Write("Enter the origin: ");
-        string origin = Console.ReadLine();
-        Console.Write("Enter the destination: ");
-        string destination = Console.ReadLine();
-        Console.Write("Enter the expected departure/arrival time (dd/mm/yyyy hh:mm): ");
-        DateTime expectedTime = DateTime.Parse(Console.ReadLine());
-        Console.Write("Enter the special request code (DDJB/CFFT/LWTT/None): ");
-        if (Console.ReadLine() == "DDJB")
+        Flight newFlight = new DDJBFlight(flightnum, origin, destination, expectedTime);
+        Console.WriteLine("Would you like to add another flight (Y/N):");
+        string ans = Console.ReadLine();
+        if (ans == "Y")
         {
-            Flight newFlight = new DDJBFlight(flightnum, origin, destination, expectedTime, "DDJB");
-            Console.WriteLine("Would you like to add another flight (Y/N)");
-            string ans = Console.ReadLine();
-            if (ans == "Y")
-            {
-                CreateNewFlight();
-                return newFlight;
+            flightDict.Add(flightnum, newFlight);
+            CreateNewFlight();
 
-            }
-            else if (ans == "N")
-            {
-                return newFlight;
-            }
-            else
-            {
-                return null;
-            }
 
         }
-        else if (Console.ReadLine() == "CFFT")
+        else if (ans == "N")
         {
-            Flight newFlight = new CFFTFlight(flightnum, origin, destination, expectedTime, "CFFT");
-            Console.WriteLine("Would you like to add another flight (Y/N)");
-            string ans = Console.ReadLine();
-            if (ans == "Y")
-            {
-                CreateNewFlight();
-                return newFlight;
-
-            }
-            else if (ans == "N")
-            {
-                return newFlight;
-            }
-            else
-            {
-                return null;
-            }
+            flightDict.Add(flightnum, newFlight);
         }
-        else if (Console.ReadLine() == "LWTT")
-        {
-            Flight newFlight = new LWTTFlight(flightnum, origin, destination, expectedTime, "LWTTF");
-            Console.WriteLine("Would you like to add another flight (Y/N)");
-            string ans = Console.ReadLine();
-            if (ans == "Y")
-            {
-                CreateNewFlight();
-                return newFlight;
 
-            }
-            else if (ans == "N")
-            {
-                return newFlight;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        else if (Console.ReadLine() == "None")
+    }
+    else if (code == "CFFT")
+    {
+        Flight newFlight = new CFFTFlight(flightnum, origin, destination, expectedTime);
+        Console.WriteLine("Would you like to add another flight (Y/N):");
+        string ans = Console.ReadLine();
+        if (ans == "Y")
         {
-            Flight newFlight = new NORMFlight(flightnum, origin, destination, expectedTime,"On Time");
-            Console.WriteLine("Would you like to add another flight (Y/N)");
-            string ans = Console.ReadLine();
-            if (ans == "Y")
-            {
-                CreateNewFlight();
-                return newFlight;
-
-            }
-            else if (ans == "N")
-            {
-                return newFlight;
-            }
-            else
-            {
-                return null;
-            }
+            flightDict.Add(flightnum, newFlight);
+            CreateNewFlight();
         }
-        else
+        else if (ans == "N")
         {
-            Console.WriteLine("Invalid special request code!");
-            return CreateNewFlight();
+            flightDict.Add(flightnum, newFlight);
         }
     }
+    else if (code == "LWTT")
+    {
+        Flight newFlight = new LWTTFlight(flightnum, origin, destination, expectedTime);
+        Console.WriteLine("Would you like to add another flight (Y/N):");
+        string ans = Console.ReadLine();
+        if (ans == "Y")
+        {
+            flightDict.Add(flightnum, newFlight);
+            CreateNewFlight();
+
+        }
+        else if (ans == "N")
+        {
+            flightDict.Add(flightnum, newFlight);
+        }
+    }
+    else if (code == "None")
+    {
+        Flight newFlight = new NORMFlight(flightnum, origin, destination, expectedTime);
+        Console.WriteLine("Would you like to add another flight (Y/N):");
+        string ans = Console.ReadLine();
+        if (ans == "Y")
+        {
+            flightDict.Add(flightnum, newFlight);
+            CreateNewFlight();
+
+        }
+        else if (ans == "N")
+        {
+            flightDict.Add(flightnum, newFlight);
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid special request code!");
+        CreateNewFlight();
+    }
+}
+
 
 //feature 9
 void SortFlights()
