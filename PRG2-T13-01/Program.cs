@@ -50,6 +50,7 @@ void LoadBoardingGates()
             Flight gateFlight = null;
             BoardingGate addGate = new BoardingGate(gateName, supportsCFFT, supportsDDJB, supportsLWTT, gateFlight);
             boardingGatesDict.Add(gateName, addGate);
+            terminal.AddBoardingGate(addGate);
         }
     }
 }
@@ -272,6 +273,7 @@ void LoadFlights()
                 flightDict.Add(flightnum, addFlight);
             }
         }
+
     }
 }
 
@@ -514,11 +516,97 @@ Flight CreateNewFlight()
     string origin = Console.ReadLine();
     Console.Write("Enter the destination: ");
     string destination = Console.ReadLine();
-    Console.Write("Enter the expected time (): ");
+    Console.Write("Enter the expected departure/arrival time (dd/mm/yyyy hh:mm): ");
     DateTime expectedTime = DateTime.Parse(Console.ReadLine());
-    Flight newFlight = new NORMFlight(flightnum, origin, destination, expectedTime);
-    return newFlight;
+    Console.Write("Enter the special request code (DDJB/CFFT/LWTT/None): ");
+    if (Console.ReadLine() == "DDJB")
+    {
+        Flight newFlight = new DDJBFlight(flightnum, origin, destination, expectedTime);
+        Console.WriteLine("Would you like to add another flight (Y/N)");
+        string ans = Console.ReadLine();
+        if (ans == "Y")
+        {
+            CreateNewFlight();
+            return newFlight;
+
+        }
+        else if (ans == "N")
+        {
+            return newFlight;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+    else if (Console.ReadLine() == "CFFT")
+    {
+        Flight newFlight = new CFFTFlight(flightnum, origin, destination, expectedTime);
+        Console.WriteLine("Would you like to add another flight (Y/N)");
+        string ans = Console.ReadLine();
+        if (ans == "Y")
+        {
+            CreateNewFlight();
+            return newFlight;
+
+        }
+        else if (ans == "N")
+        {
+            return newFlight;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    else if (Console.ReadLine() == "LWTT")
+    {
+        Flight newFlight = new LWTTFlight(flightnum, origin, destination, expectedTime);
+        Console.WriteLine("Would you like to add another flight (Y/N)");
+        string ans = Console.ReadLine();
+        if (ans == "Y")
+        {
+            CreateNewFlight();
+            return newFlight;
+
+        }
+        else if (ans == "N")
+        {
+            return newFlight;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    else if (Console.ReadLine() == "None")
+    {
+        Flight newFlight = new NORMFlight(flightnum, origin, destination, expectedTime);
+        Console.WriteLine("Would you like to add another flight (Y/N)");
+        string ans = Console.ReadLine();
+        if (ans == "Y")
+        {
+            CreateNewFlight();
+            return newFlight;
+
+        }
+        else if (ans == "N")
+        {
+            return newFlight;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid special request code!");
+        return CreateNewFlight();
+    }
 }
+
 
 //feature 9
 void SortFlights()
@@ -536,6 +624,12 @@ void SortFlights()
     }
 }
 
+//advanced feature b
+void DisplayFees()
+{
+    terminal.PrintAirlineFees();
+}
+
 //menu
 while (true)
 {
@@ -549,6 +643,7 @@ while (true)
         "5. Display Airline Flights\r\n" +
         "6. Modify Flight Details\r\n" +
         "7. Display Flight Schedule\r\n" +
+        "8. Display Airline Fees\r\n" +
         "0. Exit\r\n" +
         "Please select your option:");
     int choice = int.Parse(Console.ReadLine());
@@ -580,6 +675,10 @@ while (true)
     else if (choice == 7)
     {
         SortFlights();
+    }
+    else if (choice== 8)
+    {
+        DisplayFees();
     }
     else if (choice == 0)
     {

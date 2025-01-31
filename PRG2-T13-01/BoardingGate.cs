@@ -30,23 +30,24 @@ namespace PRG2_T13_01
             Flight = flight;
         }
         public BoardingGate() { }
+        
         public double CalculateFees()
         {
             double total = 300;
             if (Flight.Origin == "Singapore (SGP)")
-            {
-                total += 800;
-            }
-            else if (Flight.Destination == "Singapore (SGP)")
-            {
-                total += 500;
-            }
+
+
+            total += Flight.CalculateFees();
+            return total;
+
             return total;
 
         }
-        public override string ToString()
+
+public override string ToString()
         {
             return "Gate Name: " + GateName + "\nSupports CFFT: " + SupportsCFFT + "\nSupports DDJB: " + SupportsDDJB + "\nSupports LWTT: " + SupportsLWTT + "\nFlight: " + Flight;
         }
+
     }
 }

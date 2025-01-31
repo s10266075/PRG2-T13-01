@@ -21,6 +21,7 @@ namespace PRG2_T13_01
             double RequestFee = 0;
             return RequestFee;
         }
+     
         public override string ToString()
         {
             return base.ToString() + ", Type: Normal Flight";
