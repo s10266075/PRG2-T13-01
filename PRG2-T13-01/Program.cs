@@ -150,7 +150,7 @@
 
 }
     //feature 8
-    Dictionary<string, string> specialRequestCodes = new Dictionary<string, string>();
+    
     void ModifyFlightDetails(Terminal terminal)
     {
 
@@ -854,6 +854,101 @@ void SortFlights()
         Console.WriteLine(" {0, -15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}", f.FlightNumber, terminal.GetAirlineFromFlight(f), f.Origin, f.Destination, f.ExpectedTime, f.Status, gatename);
     }
 }
+//advanced feature a
+void AdvancedTaskA()
+{
+    Queue<Flight> unassignedFlightsQueue = new Queue<Flight>();
+    List<BoardingGate> availableGates = new List<BoardingGate>();
+    List<string> assignedFlightNumbers = new List<string>();
+
+    // Create a list of all flights
+    List<Flight> flightList = new List<Flight>(flightDict.Values);
+
+    // Find already assigned flights and populate available gates
+    int preAssignedFlightCount = 0;
+    foreach (var gate in terminal.BoardingGates.Values)
+    {
+        if (gate.Flight != null)
+        {
+            assignedFlightNumbers.Add(gate.Flight.FlightNumber);
+            preAssignedFlightCount++;
+        }
+        else
+        {
+            availableGates.Add(gate);
+        }
+    }
+
+    // Add unassigned flights to queue
+    foreach (Flight flight in flightList)
+    {
+        if (!assignedFlightNumbers.Contains(flight.FlightNumber))
+        {
+            unassignedFlightsQueue.Enqueue(flight);
+        }
+    }
+
+    Console.WriteLine($"Total Flights without Boarding Gate: {unassignedFlightsQueue.Count}");
+    Console.WriteLine($"Total Unassigned Boarding Gates: {availableGates.Count}");
+
+    // Assign flights to matching boarding gates
+    int processedFlightsCount = 0;
+    while (unassignedFlightsQueue.Count > 0)
+    {
+        Flight flight = unassignedFlightsQueue.Dequeue();
+        string code = "None";
+        if (flight is CFFTFlight)
+        {
+            code = "CFFT";
+        }
+        else if (flight is DDJBFlight)
+        {
+            code = "DDJB";
+        }
+        else if (flight is LWTTFlight)
+        {
+            code = "LWTT";
+        }
+        else if (flight is NORMFlight)
+        {
+            code = "None";
+        }
+        BoardingGate assignedGate = null;
+
+        foreach (var gate in availableGates.ToList()) // Convert to List to avoid modification errors
+        {
+            if ((code == "CFFT" && gate.SupportsCFFT) ||
+                (code == "DDJB" && gate.SupportsDDJB) ||
+                (code == "LWTT" && gate.SupportsLWTT) ||
+                (code == "NONE" && !gate.SupportsCFFT && !gate.SupportsDDJB && !gate.SupportsLWTT))
+            {
+                assignedGate = gate;
+                break;
+            }
+        }
+
+        if (assignedGate != null)
+        {
+            terminal.BoardingGates[assignedGate.GateName].Flight = flight;
+            availableGates.Remove(assignedGate);
+            Console.WriteLine($"{flight.FlightNumber,-7} {terminal.GetAirlineFromFlight(flight).Name,-19} {flight.Origin,-19} {flight.Destination,-19} {flight.ExpectedTime,-15} {code,-7} {assignedGate.GateName,-15}");
+            processedFlightsCount++;
+        }
+    }
+
+    Console.WriteLine($"Total Flights Assigned: {processedFlightsCount}");
+
+    // Avoid division by zero when calculating percentage
+    if (preAssignedFlightCount > 0)
+    {
+        double percentage = (processedFlightsCount / (double)(processedFlightsCount + preAssignedFlightCount)) * 100;
+        Console.WriteLine($"Percentage of Flights Assigned Automatically: {percentage:F2}%");
+    }
+    else
+    {
+        Console.WriteLine("All flights were assigned automatically.");
+    }
+}
 //advanced feature b
 
 void DisplayAirlineFees()
@@ -877,6 +972,7 @@ while (true)
         "6. Modify Flight Details\r\n" +
         "7. Display Flight Schedule\r\n" +
         "8. Display Airline Fees\r\n" +
+        "9. Process all unassigned Flights to Boarding Gates" +
         "0. Exit\r\n" +
         "Please select your option:");
     int choice = int.Parse(Console.ReadLine());
@@ -908,16 +1004,13 @@ while (true)
     {
         SortFlights();
     }
-    //advanced feature a
-
-
-
-
-
-
     else if (choice == 8)
     {
         DisplayAirlineFees();
+    }
+    else if (choice == 9)
+    {
+        AdvancedTaskA();
     }
     else if (choice == 0)
     {
