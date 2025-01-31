@@ -87,7 +87,7 @@ void DisplayAirlineFlights(Dictionary<string, Airline> airlines, Dictionary<stri
     Console.WriteLine("=============================================");
     Console.WriteLine($"{"Airline Code",-15} {"Airline Name"}");
     foreach (var airline in airlines.Values)
-    {
+    {   
         Console.WriteLine($"{airline.Code,-15} {airline.Name}");
     }
     Console.Write("Enter Airline Code: ");
@@ -99,7 +99,7 @@ void DisplayAirlineFlights(Dictionary<string, Airline> airlines, Dictionary<stri
     }
     var airlineName = airlines[airlineCode].Name;
     List<Flight> airlineFlights = new List<Flight>();
-    foreach (var flight in flights.Values)
+    foreach (var flight in flightDict.Values)
     {
         if (flight.FlightNumber.StartsWith(airlineCode))
         {
@@ -196,7 +196,7 @@ void ModifyFlightDetails(Terminal terminal)
 
             Console.WriteLine("\nStatus updated successfully!");
         }
-        else
+            else
         {
             Console.WriteLine("\nInvalid option. No changes were made.");
         }
@@ -230,6 +230,7 @@ void ModifyFlightDetails(Terminal terminal)
 
 //feature 2
 
+
 void LoadFlights()
 {
     using(StreamReader sr = new StreamReader("flights.csv"))
@@ -246,23 +247,23 @@ void LoadFlights()
             string? requestCode = parts[4];
             if (requestCode == "DDJB")
             {
-                Flight addFlight = new DDJBFlight(flightnum, origin, Destination, expectedTime);
+                Flight addFlight = new DDJBFlight(flightnum, origin, Destination, expectedTime,"DDJB");
 
                 flightDict.Add(flightnum, addFlight);
             }
             else if (requestCode == "CFFT")
             {
-                Flight addFlight = new CFFTFlight(flightnum, origin, Destination, expectedTime);
+                Flight addFlight = new CFFTFlight(flightnum, origin, Destination, expectedTime,"CFFT");
                 flightDict.Add(flightnum, addFlight);
             }
             else if (requestCode == "LWTT")
             {
-                Flight addFlight = new LWTTFlight(flightnum, origin, Destination, expectedTime);
+                Flight addFlight = new LWTTFlight(flightnum, origin, Destination, expectedTime,"LWTTF");
                 flightDict.Add(flightnum, addFlight);
             }
             else
             {
-                Flight addFlight = new NORMFlight(flightnum, origin, Destination, expectedTime);
+                Flight addFlight = new NORMFlight(flightnum, origin, Destination, expectedTime,"On time");
                 flightDict.Add(flightnum, addFlight);
             }
         }
@@ -515,7 +516,7 @@ Flight CreateNewFlight()
     Console.Write("Enter the special request code (DDJB/CFFT/LWTT/None): ");
     if (Console.ReadLine() == "DDJB")
     {
-        Flight newFlight = new DDJBFlight(flightnum, origin, destination, expectedTime);
+        Flight newFlight = new DDJBFlight(flightnum, origin, destination, expectedTime, "DDJB");
         Console.WriteLine("Would you like to add another flight (Y/N)");
         string ans = Console.ReadLine();
         if (ans == "Y")
@@ -536,7 +537,7 @@ Flight CreateNewFlight()
     }
     else if (Console.ReadLine() == "CFFT")
     {
-        Flight newFlight = new CFFTFlight(flightnum, origin, destination, expectedTime);
+        Flight newFlight = new CFFTFlight(flightnum, origin, destination, expectedTime, "CFFT");
         Console.WriteLine("Would you like to add another flight (Y/N)");
         string ans = Console.ReadLine();
         if (ans == "Y")
@@ -556,7 +557,7 @@ Flight CreateNewFlight()
     }
     else if (Console.ReadLine() == "LWTT")
     {
-        Flight newFlight = new LWTTFlight(flightnum, origin, destination, expectedTime);
+        Flight newFlight = new LWTTFlight(flightnum, origin, destination, expectedTime, "LWTTF");
         Console.WriteLine("Would you like to add another flight (Y/N)");
         string ans = Console.ReadLine();
         if (ans == "Y")
@@ -576,7 +577,7 @@ Flight CreateNewFlight()
     }
     else if (Console.ReadLine() == "None")
     {
-        Flight newFlight = new NORMFlight(flightnum, origin, destination, expectedTime);
+        Flight newFlight = new NORMFlight(flightnum, origin, destination, expectedTime,"On Time");
         Console.WriteLine("Would you like to add another flight (Y/N)");
         string ans = Console.ReadLine();
         if (ans == "Y")
