@@ -609,13 +609,17 @@ void SortFlights()
         sortList.Add(f);
         sortList.Sort();
     }
-    Console.WriteLine(" {0, -15}{1,-23}{2,-23}{3,-23}{4,-10}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
+    Console.WriteLine("{0, -15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time", "Status", "Boarding Gate");
+    string gatename = "Unassigned";
     foreach (Flight f in sortList)
     {
-        Console.WriteLine(" {0, -15}{1,-23}{2,-23}{3,-23}{4,-10}", f.FlightNumber, terminal.GetAirlineFromFlight(f), f.Origin, f.Destination, f.ExpectedTime);
+        if (terminal.BoardingGates.ContainsKey(f.FlightNumber))
+        {
+            gatename = terminal.BoardingGates[f.FlightNumber].GateName;
+        }
+        Console.WriteLine(" {0, -15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}", f.FlightNumber, terminal.GetAirlineFromFlight(f), f.Origin, f.Destination, f.ExpectedTime, f.Status, gatename);
     }
 }
-
 //advanced feature b
 
 void DisplayAirlineFees()
