@@ -237,11 +237,42 @@ namespace PRG2_T13_01
                             }
                         }
                     }
+                }
+            }
+            foreach (Flight flight in Flights.Values)
+            {
+                if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour > 21)
+                {
+                    discount += (110 + ((flight.CalculateFees() + 800) * 0.03));
+                }
+            }
+            return discount;
+        }
+        public void PrintAirlineFees()
+        {
+
+            foreach (Airline a in Airlines.Values)
+            {
+                foreach (Flight f in a.Flights.Values)
+                {
+                    if (BoardingGates.ContainsKey(f.FlightNumber))
+                    {
+                        BoardingGate gate = BoardingGates[f.FlightNumber];
+                        GateFees.Add(gate.GateName, gate.CalculateFees());
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not all flights have been added to a gate! Please assign all flights to a gate before trying again.");
+                        break;
+                    }
                     Console.WriteLine($"Original subtotal: ${a.CalculateFees().ToString("F2")}");
                     Console.WriteLine($"Total discount: ${discount.ToString("F2")}");
                     Console.WriteLine($"Total: ${(a.CalculateFees() - discount).ToString("F2")}");
                 }
             }
+
+            Console.WriteLine();
+
         }
     }
 }
