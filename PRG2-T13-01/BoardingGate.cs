@@ -39,9 +39,6 @@ namespace PRG2_T13_01
 
             total += Flight.CalculateFees();
             return total;
-
-            return total;
-
         }
 
 public override string ToString()

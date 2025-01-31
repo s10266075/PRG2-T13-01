@@ -75,7 +75,7 @@ namespace PRG2_T13_01
             foreach (Airline a in Airlines.Values)
             {
                 Console.WriteLine($"Airline name: {a.Name}");
-                if (Airlines.Count > 5)
+                if (a.Flights.Values.Count > 5)
                 {
                     double discount = 0;
                     int count = 0;
@@ -99,61 +99,23 @@ namespace PRG2_T13_01
                         if (f.ExpectedTime.Hour < 11 || f.ExpectedTime.Hour > 21)
                         {
                             discount += 110;
-                            if (f.Origin == "Singapore (SGP)")
-                            {
-                                if (f is NORMFlight)
-                                {
-                                    discount += 50;
-                                    count++;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
-                            }
-                            else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
-                            {
-                                discount += 25;
-                                if (f is NORMFlight)
-                                {
-                                    discount += 50;
-                                    count++;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
-                            }
                         }
-                        else
+                        if (f.Origin == "Singapore (SGP)")
                         {
-                            if (f.Origin == "Singapore (SGP)")
+                            if (f is NORMFlight)
                             {
-                                if (f is NORMFlight)
-                                {
-                                    discount += 50;
-                                    count++;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
-                            }
-                            else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
-                            {
-                                discount += 25;
-                                if (f is NORMFlight)
-                                {
-                                    discount += 50;
-                                    count++;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
+                                discount += 50;
                             }
                         }
-
+                        else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
+                        {
+                            discount += 25;
+                            if (f is NORMFlight)
+                            {
+                                discount += 50;
+                            }
+                        }
+                        count++;
                     }
                     Console.WriteLine($"Original subtotal: ${a.CalculateFees().ToString("F2")}");
                     Console.WriteLine($"Total discount: ${discount.ToString("F2")}");
@@ -173,7 +135,7 @@ namespace PRG2_T13_01
                         else
                         {
                             Console.WriteLine("Not all flights have been added to a gate! Please assign all flights to a gate before trying again.");
-                            //break;
+                            break;
                         }
                         if (count % 3 == 0 && count > 0)
                         {
@@ -182,64 +144,29 @@ namespace PRG2_T13_01
                         if (f.ExpectedTime.Hour < 11 || f.ExpectedTime.Hour > 21)
                         {
                             discount += 110;
-                            if (f.Origin == "Singapore (SGP)")
-                            {
-                                if (f is NORMFlight)
-                                {
-                                    discount += 50;
-                                    count++;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
-                            }
-                            else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
-                            {
-                                discount += 25;
-                                if (f is NORMFlight)
-                                {
-                                    discount += 50;
-                                    count++;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
-                            }
                         }
-                        else
+                        if (f.Origin == "Singapore (SGP)")
                         {
-                            if (f.Origin == "Singapore (SGP)")
+                            if (f is NORMFlight)
                             {
-                                if (f is NORMFlight)
-                                {
-                                    discount += 50;
-                                    count++;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
-                            }
-                            else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
-                            {
-                                discount += 25;
-                                if (f is NORMFlight)
-                                {
-                                    discount += 50;
-                                    count++;
-                                }
-                                else
-                                {
-                                    count++;
-                                }
+                                discount += 50;
                             }
                         }
+                        else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok (BKK)" || f.Origin == "Tokyo (NRT)")
+                        {
+                            discount += 25;
+                            if (f is NORMFlight)
+                            {
+                                discount += 50;
+                            }
+                        }
+                        count++;
                     }
+                    Console.WriteLine($"Original subtotal: ${a.CalculateFees().ToString("F2")}");
+                    Console.WriteLine($"Total discount: ${discount.ToString("F2")}");
+                    Console.WriteLine($"Total: ${(a.CalculateFees() - discount).ToString("F2")}");
                 }
             }
         }
-
     }
 }
