@@ -1,4 +1,5 @@
 // See https://aka.ms/new-console-template for more information
+
 using PRG2_T13_01;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 // Student Number: S10266842H
 // Partner Name: Goh Yu Chong Ansel 
 //==========================================================
+
 Terminal terminal = new Terminal("Terminal 5");
 
 //feature 1
@@ -27,7 +29,6 @@ void LoadAirlines()
             string code = parts[1];
             string name = parts[0];
             Airline addairline = new Airline(code, name);
-            airlineDict.Add(code, addairline);
             terminal.AddAirline(addairline);
         }
     }
@@ -286,7 +287,7 @@ void DisplayInfo()
     Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}","Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
     foreach (KeyValuePair<string, Flight> flight in flightDict)
     {
-        Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}", flight.Key, terminal.GetAirlineFromFlight(flight.Value), flight.Value.Origin, flight.Value.Destination, flight.Value.ExpectedTime);
+        Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}", flight.Key, terminal.GetAirlineFromFlight(flight.Value).Name, flight.Value.Origin, flight.Value.Destination, flight.Value.ExpectedTime);
     }
 }
 
@@ -302,7 +303,7 @@ void AssignGateToFlight()
     string gateName = Console.ReadLine();
     if (flightDict.ContainsKey(flightnum) && boardingGatesDict.ContainsKey(gateName))
     {
-        if ((boardingGatesDict[gateName].Flight==null))
+        if ((boardingGatesDict[gateName].Flight == null))
         {
             boardingGatesDict[gateName].Flight = flightDict[flightnum];
             Console.WriteLine("Flight has been assigned to the gate!");
@@ -311,7 +312,7 @@ void AssignGateToFlight()
             Console.WriteLine($"Origin: {temp.Origin}");
             Console.WriteLine($"Destination: {temp.Destination}");
             Console.WriteLine($"Boarding Gate Name: {gateName}");
-            if(temp is CFFTFlight)
+            if (temp is CFFTFlight)
             {
                 Console.WriteLine("Special Request Code: None");
                 Console.WriteLine("Would you like to update the status of the flight? (Y/N)");
@@ -492,6 +493,7 @@ void AssignGateToFlight()
                 }
             }
         }
+
         else
         {
             Console.WriteLine("Gate is already occupied!");

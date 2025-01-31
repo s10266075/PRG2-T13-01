@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//==========================================================
+// Student Number: S10266075F
+// Student Name: Low Day Gene
+// Student Number: S10266842H
+// Partner Name: Goh Yu Chong Ansel 
+//==========================================================
+
 namespace PRG2_T13_01
 {
     class Airline
@@ -28,96 +35,6 @@ namespace PRG2_T13_01
             return false;
         }
 
-        public double CalculateFees()
-        {
-            double total = 0;
-            double discount = 0;
-            if (Flights.Count > 5)
-            {
-                int count = 0;
-                if (count% 3 == 0)
-                {
-                    discount += 350;
-                }
-                foreach (Flight flight in Flights.Values)
-                {
-                    if (flight.Origin == "Singapore")
-                    {
-                        total += (flight.CalculateFees() + 800);
-                        if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour > 21)
-                        {
-                            discount += (110+((flight.CalculateFees() + 800) * 0.03));
-                        }
-                    }
-                    else
-                    {
-                        total += (flight.CalculateFees() + 500);
-                        if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour > 21)
-                        {
-                            if (flight.Origin == "Dubai" || flight.Origin == "Bangkok" || flight.Origin == "Tokyo")
-                            {
-                                discount += (110 + 25 + ((flight.CalculateFees() + 500) * 0.03));
-                            }
-                            else
-                            {
-                                total += (110 + ((flight.CalculateFees() + 500) * 0.03));
-                            }
-                        }
-                        else
-                        {
-                            if (flight.Origin == "Dubai" || flight.Origin == "Bangkok" || flight.Origin == "Tokyo")
-                            {
-                                discount += 25;
-                            }
-                        }
-                    }
-                    count++;
-                }
-                return total;
-            }
-            else
-            {
-                int count = 0;
-                if (count % 3 == 0)
-                {
-                    discount += 350;
-                }
-                foreach (Flight flight in Flights.Values)
-                {
-                    if (flight.Origin == "Singapore")
-                    {
-                        total += ((flight.CalculateFees() + 800));
-                        if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour > 21)
-                        {
-                            discount += (110);
-                        }
-                    }
-                    else
-                    {
-                        total += (flight.CalculateFees() + 500);
-                        if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour > 21)
-                        {
-                            if (flight.Origin == "Dubai" || flight.Origin == "Bangkok" || flight.Origin == "Tokyo")
-                            {
-                                discount += (110 + 25);
-                            }
-                            else
-                            {
-                                discount += 110;
-                            }
-                        }
-                        else
-                        {
-                            if (flight.Origin == "Dubai" || flight.Origin == "Bangkok" || flight.Origin == "Tokyo")
-                            {
-                                discount += 25;
-                            }
-                        }
-                    }
-                }
-                return total;
-            }
-        }
         public bool RemoveFlight(Flight flight)
         {
             return Flights.Remove(flight.FlightNumber);
@@ -125,6 +42,15 @@ namespace PRG2_T13_01
         public override string ToString()
         {
             return $"{Name} ({Code})";
+
+        public double CalculateFees()
+        {
+            double totalFees = 0;
+            foreach (Flight f in Flights.Values)
+            {
+                totalFees += f.CalculateFees();
+            }
+            return totalFees;
         }
     }
 }

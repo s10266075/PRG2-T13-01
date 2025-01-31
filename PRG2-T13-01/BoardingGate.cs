@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//==========================================================
+// Student Number: S10266075F
+// Student Name: Low Day Gene
+// Student Number: S10266842H
+// Partner Name: Goh Yu Chong Ansel 
+//==========================================================
+
 namespace PRG2_T13_01
 {
     class BoardingGate
@@ -28,23 +35,13 @@ namespace PRG2_T13_01
         {
             double total = 300;
             if (Flight.Origin == "Singapore (SGP)")
-            {
-                total += 800;
-            }
-            else if (Flight is LWTTFlight&&SupportsLWTT)
-            {
-                return Flight.CalculateFees() + 300.00+500.00;
-            }
-            else if (Flight is NORMFlight)
-            {
-                return Flight.CalculateFees() + 300.00;
-            }
-            else
-            {
-                total += 500;
-            }
+
+
             total += Flight.CalculateFees();
             return total;
+
+            return total;
+
         }
 
 public override string ToString()
