@@ -41,7 +41,6 @@ namespace PRG2_T13_01
             {
                 total += 500;
             }
-            total+=Flight.CalculateFees();
             return total;
 
         }
