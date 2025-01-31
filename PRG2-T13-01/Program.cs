@@ -666,7 +666,7 @@ while (true)
     }
     else if (choice == 5)
     {
-        Console.WriteLine();
+        DisplayFlightsForAirline(terminal.Airlines);
     }
     else if (choice == 6)
     {

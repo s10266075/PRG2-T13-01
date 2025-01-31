@@ -42,6 +42,7 @@ namespace PRG2_T13_01
         public override string ToString()
         {
             return $"{Name} ({Code})";
+        }
 
         public double CalculateFees()
         {
