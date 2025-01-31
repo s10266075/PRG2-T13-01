@@ -15,8 +15,6 @@ using System.Security.Cryptography;
 Terminal terminal = new Terminal("Terminal 5");
 
 //feature 1
-Dictionary<string, Airline> airlineDict = new Dictionary<string, Airline>();
-Dictionary<string, BoardingGate> boardingGatesDict = new Dictionary<string, BoardingGate>();
 Dictionary<string, Flight> flightDict = new Dictionary<string, Flight>();
 void LoadAirlines()
 {
@@ -50,7 +48,6 @@ void LoadBoardingGates()
             bool supportsLWTT = bool.Parse(parts[3]);
             Flight gateFlight = null;
             BoardingGate addGate = new BoardingGate(gateName, supportsCFFT, supportsDDJB, supportsLWTT, gateFlight);
-            boardingGatesDict.Add(gateName, addGate);
             terminal.AddBoardingGate(addGate);
         }
     }
@@ -540,11 +537,11 @@ void AssignGateToFlight()
     string flightnum = Console.ReadLine();
     Console.Write("Enter the gate name: ");
     string gateName = Console.ReadLine();
-    if (flightDict.ContainsKey(flightnum) && boardingGatesDict.ContainsKey(gateName))
+    if (flightDict.ContainsKey(flightnum) && terminal.BoardingGates.ContainsKey(gateName))
     {
-        if ((boardingGatesDict[gateName].Flight == null))
+        if ((terminal.BoardingGates[gateName].Flight == null))
         {
-            boardingGatesDict[gateName].Flight = flightDict[flightnum];
+            terminal.BoardingGates[gateName].Flight = flightDict[flightnum];
             Console.WriteLine("Flight has been assigned to the gate!");
             Flight temp = flightDict[flightnum];
             Console.WriteLine($"Flight Number: {flightnum}");
@@ -864,10 +861,13 @@ void SortFlights()
 }
 
 //advanced feature b
-void DisplayFees()
+
+void DisplayAirlineFees()
 {
     terminal.PrintAirlineFees();
 }
+
+
 
 //menu
 while (true)
@@ -891,9 +891,8 @@ while (true)
         DisplayInfo();
     }
     else if (choice == 2)
-    {
-        
-        ListAllBoardingGates(boardingGatesDict);
+    { 
+        ListAllBoardingGates(terminal.BoardingGates);
     }
     else if (choice == 3)
     {
@@ -915,9 +914,10 @@ while (true)
     {
         SortFlights();
     }
-    else if (choice== 8)
+
+    else if (choice == 8)
     {
-        DisplayFees();
+        DisplayAirlineFees();
     }
     else if (choice == 0)
     {
