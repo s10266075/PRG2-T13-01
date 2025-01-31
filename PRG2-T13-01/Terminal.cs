@@ -248,51 +248,6 @@ namespace PRG2_T13_01
             }
             return discount;
         }
-        public void PrintAirlineFees()
-        {
-
-            foreach(BoardingGate b in BoardingGates.Values)
-            {
-                if (b.Flight == null)
-                {
-                    Console.WriteLine("There are flights which have not been assigned! Please assign all flights to a boarding gate first.");
-                    //break;
-                }
-                else
-                {
-                    foreach (Airline a in Airlines.Values)
-                    {
-                        {
-                            Console.WriteLine("Airline: " + a.Name + " (" + a.Code + ")");
-                            Console.WriteLine("Total Fees: " + a.CalculateFees());
-                        }
-
-                    }
-                }
-            }
-            
-
-            foreach (Airline a in Airlines.Values)
-            {
-                foreach (Flight f in a.Flights.Values)
-                {
-                    if (BoardingGates.ContainsKey(f.FlightNumber))
-                    {
-                        BoardingGate gate = BoardingGates[f.FlightNumber];
-                        GateFees.Add(gate.GateName, gate.CalculateFees());
-                    }
-                    else
-                    {
-                        Console.WriteLine("Not all flights have been added to a gate! Please assign all flights to a gate before trying again.");
-                        break;
-                    }
-                    Console.WriteLine($"Original subtotal: ${a.CalculateFees().ToString("F2")}");
-                    Console.WriteLine($"Total discount: ${discount.ToString("F2")}");
-                    Console.WriteLine($"Total: ${(a.CalculateFees() - discount).ToString("F2")}");
-                }
-            }
-
-            Console.WriteLine();
 
         }
     }
