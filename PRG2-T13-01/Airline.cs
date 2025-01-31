@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//==========================================================
+// Student Number: S10266075F
+// Student Name: Low Day Gene
+// Student Number: S10266842H
+// Partner Name: Goh Yu Chong Ansel 
+//==========================================================
+
 namespace PRG2_T13_01
 {
     class Airline
@@ -27,16 +34,7 @@ namespace PRG2_T13_01
             }
             return false;
         }
-        /*public double CalculateFees()
-        {
-            double fees = 0;
-            foreach (Flight flight in Flights.Values)
-            {
-                fees += flight.CalculateFees();
-            }
-            return fees;
 
-        }*/
         public bool RemoveFlight(Flight flight)
         {
             return Flights.Remove(flight.FlightNumber);
@@ -44,6 +42,16 @@ namespace PRG2_T13_01
         public override string ToString()
         {
             return $"{Name} ({Code})";
+        }
+
+        public double CalculateFees()
+        {
+            double totalFees = 0;
+            foreach (Flight f in Flights.Values)
+            {
+                totalFees += f.CalculateFees();
+            }
+            return totalFees;
         }
     }
 }
