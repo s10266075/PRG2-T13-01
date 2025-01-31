@@ -28,7 +28,6 @@ void LoadAirlines()
             string code = parts[1];
             string name = parts[0];
             Airline addairline = new Airline(code, name);
-            airlineDict.Add(code, addairline);
             terminal.AddAirline(addairline);
         }
     }
@@ -108,7 +107,7 @@ void DisplayInfo()
     Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}","Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
     foreach (KeyValuePair<string, Flight> flight in flightDict)
     {
-        Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}", flight.Key, terminal.GetAirlineFromFlight(flight.Value), flight.Value.Origin, flight.Value.Destination, flight.Value.ExpectedTime);
+        Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}", flight.Key, terminal.GetAirlineFromFlight(flight.Value).Name, flight.Value.Origin, flight.Value.Destination, flight.Value.ExpectedTime);
     }
 }
 

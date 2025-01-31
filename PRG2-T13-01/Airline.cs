@@ -34,19 +34,14 @@ namespace PRG2_T13_01
             }
             return false;
         }
-        /*public double CalculateFees()
+        public double CalculateFees()
         {
-            foreach (Flight flight in Flights.Values)
+            double totalFees = 0;
+            foreach (Flight f in Flights.Values)
             {
-                fees += flight.CalculateFees();
+                totalFees += f.CalculateFees();
             }
-        public bool RemoveFlight(Flight flight)
-        {
-            return Flights.Remove(flight.FlightNumber);
-        }
-        public override string ToString()
-        {
-            return $"{Name} ({Code})";
+            return totalFees;
         }
     }
 }

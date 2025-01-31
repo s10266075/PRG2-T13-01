@@ -19,7 +19,7 @@ namespace PRG2_T13_01
         public Dictionary<string, Airline> Airlines { get; set; }
         public Dictionary<string, Flight> Flights { get; set; }
         public Dictionary<string, BoardingGate> BoardingGates { get; set; }
-        public Dictionary <string, double> GateFees { get; set; }
+        public Dictionary<string, double> GateFees { get; set; }
 
         public Terminal(string tn)
         {
@@ -29,7 +29,7 @@ namespace PRG2_T13_01
             BoardingGates = new Dictionary<string, BoardingGate>();
             GateFees = new Dictionary<string, double>();
         }
-        
+
         public Terminal() { }
         public bool AddAirline(Airline a)
         {
@@ -73,6 +73,146 @@ namespace PRG2_T13_01
         public double CalculateFees()
         {
             double discount = 0;
+            foreach (Airline airline in Airlines.Values)
+            {
+                int count = 0;
+                if (airline.Flights.Count > 5)
+                {
+                    foreach (Flight f in airline.Flights.Values)
+                    {
+                        if (count % 3 == 0)
+                        {
+                            discount += 350;
+                        }
+                        discount += f.CalculateFees() * 0.03;
+                        if (f.ExpectedTime.Hour < 11 || f.ExpectedTime.Hour > 21)
+                        {
+                            discount += 110;
+                            if (f.Origin == "Singapore (SGP)")
+                            {
+                                if (f is NORMFlight)
+                                {
+                                    discount += 50;
+                                    count++;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+                            else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
+                            {
+                                discount += 25;
+                                if (f is NORMFlight)
+                                {
+                                    discount += 50;
+                                    count++;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (f.Origin == "Singapore (SGP)")
+                            {
+                                if (f is NORMFlight)
+                                {
+                                    discount += 50;
+                                    count++;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+                            else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
+                            {
+                                discount += 25;
+                                if (f is NORMFlight)
+                                {
+                                    discount += 50;
+                                    count++;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    foreach (Flight f in airline.Flights.Values)
+                    {
+                        if (count % 3 == 0)
+                        {
+                            discount += 350;
+                        }
+                        if (f.ExpectedTime.Hour < 11 || f.ExpectedTime.Hour > 21)
+                        {
+                            discount += 110;
+                            if (f.Origin == "Singapore (SGP)")
+                            {
+                                if (f is NORMFlight)
+                                {
+                                    discount += 50;
+                                    count++;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+                            else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
+                            {
+                                discount += 25;
+                                if (f is NORMFlight)
+                                {
+                                    discount += 50;
+                                    count++;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (f.Origin == "Singapore (SGP)")
+                            {
+                                if (f is NORMFlight)
+                                {
+                                    discount += 50;
+                                    count++;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+                            else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
+                            {
+                                discount += 25;
+                                if (f is NORMFlight)
+                                {
+                                    discount += 50;
+                                    count++;
+                                }
+                                else
+                                {
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             foreach (Flight flight in Flights.Values)
             {
                 if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour > 21)
@@ -83,6 +223,26 @@ namespace PRG2_T13_01
             return discount;
         }
         public void PrintAirlineFees()
-        { }
+        {
+            foreach (Airline a in Airlines.Values)
+            {
+                foreach (Flight f in a.Flights.Values)
+                {
+                    if (BoardingGates.ContainsKey(f.FlightNumber))
+                    {
+                        BoardingGate gate = BoardingGates[f.FlightNumber];
+                        GateFees.Add(gate.GateName, gate.CalculateFees());
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not all flights have been added to a gate! Please assign all flights to a gate before trying again.");
+                        break;
+                    }
+
+
+                    Console.WriteLine($"Original subtotal: {a.CalculateFees()}");
+                }
+            }
+        }
     }
 }
