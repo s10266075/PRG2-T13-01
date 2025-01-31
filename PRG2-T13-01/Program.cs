@@ -358,6 +358,12 @@ void SortFlights()
     }
 }
 
+//advanced feature b
+void DisplayAirlineFees()
+{
+    terminal.PrintAirlineFees();
+}
+
 //menu
 while (true)
 {
@@ -401,6 +407,10 @@ while (true)
     else if (choice == 7)
     {
         SortFlights();
+    }
+    else if (choice == 8)
+    {
+        DisplayAirlineFees();
     }
     else if (choice == 0)
     {
