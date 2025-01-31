@@ -140,24 +140,15 @@
 
         Console.WriteLine($"List of Flights for {airlineName}");
         Console.WriteLine("{0,-15} {1,-25} {2,-25} {3,-25} {4,-15}",
-                      "Flight Number", "Airline Name", "Origin", "Destination", "Departure/Arrival Time");
+                      "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
 
-        foreach (var flight in airlineFlights)
-        {
-            string datePart = flight.ExpectedTime.ToString("dd/MM/yyyy");  // Extracts Date
-            string timePart = flight.ExpectedTime.ToString("h:mm:ss tt");  // Extracts Time (AM/PM format)
-
-            Console.WriteLine("{0,-15} {1,-25} {2,-25} {3,-25} {4,-15}",
-                              flight.FlightNumber,
-                              airlineName,
-                              flight.Origin,
-                              flight.Destination,
-                              datePart); // Print Date on first row
-
-            Console.WriteLine("{0}", timePart); // Print Time on second row, align columns
-        }
-
+   
+    foreach (var flight in airlineFlights)
+    {
+        Console.WriteLine($"{flight.FlightNumber,-15} {airlineName,-25} {flight.Origin,-25} {flight.Destination,-25} {flight.ExpectedTime}");
     }
+
+}
     //feature 8
     Dictionary<string, string> specialRequestCodes = new Dictionary<string, string>();
     void ModifyFlightDetails(Terminal terminal)
@@ -859,6 +850,12 @@
             Console.WriteLine(" {0, -15}{1,-23}{2,-23}{3,-23}{4,-10}", f.FlightNumber, terminal.GetAirlineFromFlight(f), f.Origin, f.Destination, f.ExpectedTime);
         }
     }
+    //advanced feature a
+
+
+
+
+
 
     //advanced feature b
 
