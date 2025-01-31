@@ -23,15 +23,13 @@ namespace PRG2_T13_01
             Flight = flight;
         }
         public BoardingGate() { }
+        
         public double CalculateFees()
         {
-            if (Flight is CFFTFlight&&SupportsCFFT)
+            double total = 300;
+            if (Flight.Origin == "Singapore (SGP)")
             {
-                return Flight.CalculateFees() + 300.00+150.00;
-            }
-            else if (Flight is DDJBFlight&&SupportsDDJB)
-            {
-                return Flight.CalculateFees() + 300.00+300.00;
+                total += 800;
             }
             else if (Flight is LWTTFlight&&SupportsLWTT)
             {
@@ -43,12 +41,16 @@ namespace PRG2_T13_01
             }
             else
             {
-                return 0.0;
+                total += 500;
             }
+            total += Flight.CalculateFees();
+            return total;
         }
-        public override string ToString()
+
+public override string ToString()
         {
             return "Gate Name: " + GateName + "\nSupports CFFT: " + SupportsCFFT + "\nSupports DDJB: " + SupportsDDJB + "\nSupports LWTT: " + SupportsLWTT + "\nFlight: " + Flight;
         }
+
     }
 }

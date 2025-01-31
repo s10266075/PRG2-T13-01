@@ -16,6 +16,7 @@ namespace PRG2_T13_01
         public override double CalculateFees()
         {
             RequestFee = 300;
+            return RequestFee;
 
             if (Origin == "Singapore")
             {
