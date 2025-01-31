@@ -13,8 +13,8 @@ namespace PRG2_T13_01
     {
         public double RequestFee { get; set; }
 
-        public LWTTFlight(string fn, string o, string d, DateTime et, double rf = 500) 
-            : base(fn, o, d, et)
+        public LWTTFlight(string fn, string o, string d, DateTime et, string s,double rf = 500) 
+            : base(fn, o, d, et,s)
         {
             RequestFee = rf;
         }

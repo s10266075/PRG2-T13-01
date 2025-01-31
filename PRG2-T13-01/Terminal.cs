@@ -251,6 +251,27 @@ namespace PRG2_T13_01
         public void PrintAirlineFees()
         {
 
+            foreach(BoardingGate b in BoardingGates.Values)
+            {
+                if (b.Flight == null)
+                {
+                    Console.WriteLine("There are flights which have not been assigned! Please assign all flights to a boarding gate first.");
+                    //break;
+                }
+                else
+                {
+                    foreach (Airline a in Airlines.Values)
+                    {
+                        {
+                            Console.WriteLine("Airline: " + a.Name + " (" + a.Code + ")");
+                            Console.WriteLine("Total Fees: " + a.CalculateFees());
+                        }
+
+                    }
+                }
+            }
+            
+
             foreach (Airline a in Airlines.Values)
             {
                 foreach (Flight f in a.Flights.Values)
