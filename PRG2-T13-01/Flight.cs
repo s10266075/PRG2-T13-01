@@ -21,6 +21,8 @@ namespace PRG2_T13_01
         public string Destination { get; set; }
         public DateTime ExpectedTime { get; set; }
         public string Status { get; set; }
+        public string SpecialRequestCode { get; set; } 
+        public string BoardingGate { get; set; }
 
         public Flight (string fn, string o, string d, DateTime et, string s = "Scheduled") 
         {
@@ -28,7 +30,9 @@ namespace PRG2_T13_01
             Origin = o;
             Destination = d;
             ExpectedTime = et;
-            Status = s;    
+            Status = s;
+            SpecialRequestCode = null; 
+            BoardingGate = null;
         }
         public virtual double CalculateFees() { return 0.0; }
         public int CompareTo(Flight other)

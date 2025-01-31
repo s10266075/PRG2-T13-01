@@ -224,6 +224,7 @@ namespace PRG2_T13_01
         }
         public void PrintAirlineFees()
         {
+
             foreach (Airline a in Airlines.Values)
             {
                 foreach (Flight f in a.Flights.Values)
@@ -243,6 +244,9 @@ namespace PRG2_T13_01
                     Console.WriteLine($"Original subtotal: {a.CalculateFees()}");
                 }
             }
+
+            Console.WriteLine();
+
         }
     }
 }
