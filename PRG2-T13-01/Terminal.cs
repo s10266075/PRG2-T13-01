@@ -27,7 +27,7 @@ namespace PRG2_T13_01
             Airlines = new Dictionary<string, Airline>();
             Flights = new Dictionary<string, Flight>();
             BoardingGates = new Dictionary<string, BoardingGate>();
-            GateFees = new Dictionary<string, double>();
+            GateFees = new Dictionary<string, double> { };
         }
 
         public Terminal() { }
@@ -70,17 +70,28 @@ namespace PRG2_T13_01
                 return null;
             }
         }
-        public double CalculateFees()
+        public void PrintAirlineFees()
         {
-            double discount = 0;
-            foreach (Airline airline in Airlines.Values)
+            foreach (Airline a in Airlines.Values)
             {
-                int count = 0;
-                if (airline.Flights.Count > 5)
+                Console.WriteLine($"Airline name: {a.Name}");
+                if (Airlines.Count > 5)
                 {
-                    foreach (Flight f in airline.Flights.Values)
+                    double discount = 0;
+                    int count = 0;
+                    foreach (Flight f in a.Flights.Values)
                     {
-                        if (count % 3 == 0)
+                        if (BoardingGates.ContainsKey(f.FlightNumber))
+                        {
+                            BoardingGate gate = BoardingGates[f.FlightNumber];
+                            GateFees.Add(gate.GateName, gate.CalculateFees());
+                        }
+                        else
+                        {
+                            Console.WriteLine("Not all flights have been added to a gate! Please assign all flights to a gate before trying again.");
+                            break;
+                        }
+                        if (count % 3 == 0 && count > 0)
                         {
                             discount += 350;
                         }
@@ -142,14 +153,29 @@ namespace PRG2_T13_01
                                 }
                             }
                         }
-                    }
 
+                    }
+                    Console.WriteLine($"Original subtotal: ${a.CalculateFees().ToString("F2")}");
+                    Console.WriteLine($"Total discount: ${discount.ToString("F2")}");
+                    Console.WriteLine($"Total: ${(a.CalculateFees()-discount).ToString("F2")}");
                 }
                 else
                 {
-                    foreach (Flight f in airline.Flights.Values)
+                    double discount = 0;
+                    int count = 0;
+                    foreach (Flight f in a.Flights.Values)
                     {
-                        if (count % 3 == 0)
+                        if (BoardingGates.ContainsKey(f.FlightNumber))
+                        {
+                            BoardingGate gate = BoardingGates[f.FlightNumber];
+                            GateFees.Add(gate.GateName, gate.CalculateFees());
+                        }
+                        else
+                        {
+                            Console.WriteLine("Not all flights have been added to a gate! Please assign all flights to a gate before trying again.");
+                            //break;
+                        }
+                        if (count % 3 == 0 && count > 0)
                         {
                             discount += 350;
                         }
@@ -260,9 +286,9 @@ namespace PRG2_T13_01
                         Console.WriteLine("Not all flights have been added to a gate! Please assign all flights to a gate before trying again.");
                         break;
                     }
-
-
-                    Console.WriteLine($"Original subtotal: {a.CalculateFees()}");
+                    Console.WriteLine($"Original subtotal: ${a.CalculateFees().ToString("F2")}");
+                    Console.WriteLine($"Total discount: ${discount.ToString("F2")}");
+                    Console.WriteLine($"Total: ${(a.CalculateFees() - discount).ToString("F2")}");
                 }
             }
 

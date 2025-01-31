@@ -620,10 +620,10 @@ void SortFlights()
 }
 
 //advanced feature b
-void DisplayFees()
-{
-    terminal.PrintAirlineFees();
-}
+
+void DisplayAirlineFees()
+
+
 
 //menu
 while (true)
@@ -671,9 +671,10 @@ while (true)
     {
         SortFlights();
     }
-    else if (choice== 8)
+
+    else if (choice == 8)
     {
-        DisplayFees();
+        DisplayAirlineFees();
     }
     else if (choice == 0)
     {
