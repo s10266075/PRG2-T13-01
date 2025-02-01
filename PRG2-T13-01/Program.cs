@@ -898,7 +898,7 @@ void AdvancedTaskA()
 
     Console.WriteLine($"Total Flights without Boarding Gate: {unassignedFlightsQueue.Count}");
     Console.WriteLine($"Total Unassigned Boarding Gates: {availableGates.Count}");
-
+    Console.WriteLine($"{"Flight Number",-7} {"Flight Name",-19} {"Origin",-19} {"Destination",-19} {"ExpectedTime",-15} {"Code",-7} {"Gate Name",-15}");
     // Assign flights to matching boarding gates
     int processedFlightsCount = 0;
     while (unassignedFlightsQueue.Count > 0)
@@ -952,11 +952,13 @@ void AdvancedTaskA()
     if (preAssignedFlightCount > 0)
     {
         double percentage = (processedFlightsCount / (double)(processedFlightsCount + preAssignedFlightCount)) * 100;
+        Console.WriteLine("All flights were assigned automatically.");
         Console.WriteLine($"Percentage of Flights Assigned Automatically: {percentage:F2}%");
     }
     else
     {
         Console.WriteLine("All flights were assigned automatically.");
+        Console.WriteLine($"Percentage of Flights Assigned Automatically: 100%");
     }
 
 }
