@@ -859,9 +859,12 @@ void SortFlights()
     string type = "None";
     foreach (Flight f in sortList)
     {
-        if (terminal.BoardingGates.ContainsKey(f.FlightNumber))
+        foreach (BoardingGate b in terminal.BoardingGates.Values)
         {
-            gatename = terminal.BoardingGates[f.FlightNumber].GateName;
+            if (b.Flight == f) ;
+            {
+                gatename = b.GateName;
+            }
         }
         if (f is CFFTFlight)
         {
@@ -1047,6 +1050,7 @@ while (true)
     }
     else if (choice == 0)
     {
+        Console.WriteLine("Goodbye!");
         break;
     }
 }
