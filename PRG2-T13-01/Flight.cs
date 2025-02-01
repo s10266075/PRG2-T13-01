@@ -33,7 +33,19 @@ namespace PRG2_T13_01
             Status = s;
             Gate = false;
         }
-        public virtual double CalculateFees() { return 0.0; }
+        public virtual double CalculateFees() 
+        {
+            double fee = 0;
+            if(Origin == "Singapore (SIN)")
+            {
+                fee = 800;
+            }
+            else if(Destination == "Singapore (SIN)")
+            {
+                fee = 500;
+            }
+            return fee;
+        }
         public int CompareTo(Flight other)
         {
             return this.ExpectedTime.CompareTo(other.ExpectedTime);

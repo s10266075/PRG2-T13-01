@@ -733,6 +733,10 @@ void AssignGateToFlight()
                             Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
                             break;
                         }
+                        else
+                        {
+                            Console.WriteLine("Invalid option!");
+                        }
                     }
                     catch (FormatException)
                     {
@@ -850,15 +854,32 @@ void SortFlights()
         sortList.Add(f);
         sortList.Sort();
     }
-    Console.WriteLine("{0, -15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}","Flight Number","Airline Name","Origin","Destination","Expected Departure/Arrival Time","Status","Boarding Gate");
+    Console.WriteLine("{0, -15}{1,-25}{2,-20}{3,-18}{4,-35}{5,-15}{6,-17}{7}","Flight Number","Airline Name","Origin","Destination","Expected Departure/Arrival Time","Status","Boarding Gate","Special Request Code");
     string gatename = "Unassigned";
+    string type = "None";
     foreach (Flight f in sortList)
     {
         if (terminal.BoardingGates.ContainsKey(f.FlightNumber))
         {
             gatename = terminal.BoardingGates[f.FlightNumber].GateName;
         }
-        Console.WriteLine("{0,-15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}",f.FlightNumber,terminal.GetAirlineFromFlight(f),f.Origin,f.Destination,f.ExpectedTime,f.Status,gatename);
+        if (f is CFFTFlight)
+        {
+            type = "CFFT";
+        }
+        else if (f is DDJBFlight)
+        {
+            type = "DDJB";
+        }
+        else if (f is LWTTFlight)
+        {
+            type = "LWTT";
+        }
+        else if (f is NORMFlight)
+        {
+            type = "None";
+        }
+        Console.WriteLine("{0,-15}{1,-25}{2,-20}{3,-18}{4,-35}{5,-15}{6,-17}{7}",f.FlightNumber,terminal.GetAirlineFromFlight(f).Name,f.Origin,f.Destination,f.ExpectedTime,f.Status,gatename,type);
     }
 }
 //advanced feature a

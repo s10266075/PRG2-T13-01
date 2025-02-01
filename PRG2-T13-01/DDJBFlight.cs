@@ -22,8 +22,10 @@ namespace PRG2_T13_01
         }
         public override double CalculateFees()
         {
+            double total = base.CalculateFees();
             RequestFee = 300;
-            return RequestFee;
+            total += RequestFee;
+            return total;
         }
         public override string ToString()
         {
