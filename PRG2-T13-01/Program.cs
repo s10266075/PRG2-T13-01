@@ -15,7 +15,6 @@ using System.Security.Cryptography;
 Terminal terminal = new Terminal("Terminal 5");
 
 //feature 1
-Dictionary<string, Flight> flightDict = new Dictionary<string, Flight>();
 void LoadAirlines()
 {
     using (StreamReader sr = new StreamReader("airlines.csv"))
@@ -126,7 +125,7 @@ void DisplayAirlineFlights(Dictionary<string, Airline> airlines, Dictionary<stri
     }
     var airlineName = airlines[airlineCode].Name;
     List<Flight> airlineFlights = new List<Flight>();
-    foreach (var flight in flightDict.Values)
+    foreach (var flight in terminal.Flights.Values)
     {
         if (flight.FlightNumber.StartsWith(airlineCode))
         {
@@ -158,13 +157,13 @@ void ModifyFlightDetails(Terminal terminal)
         Console.WriteLine("Choose an existing Flight to modify or delete:");
         string flightNum = Console.ReadLine().ToUpper();
 
-    if (!flightDict.ContainsKey(flightNum))
+    if (!terminal.Flights.ContainsKey(flightNum))
     {
         Console.WriteLine("Error: Flight not found.");
         return;
     }
 
-    Flight flight = flightDict[flightNum];
+    Flight flight = terminal.Flights[flightNum];
     Console.WriteLine("1. Modify Flight");
     Console.WriteLine("2. Delete Flight");
     Console.WriteLine("Choose an option:");
@@ -335,7 +334,7 @@ void ModifyFlightDetails(Terminal terminal)
 
 
                         // Replace old flight instance with new one
-                        flightDict[flightNum] = newFlight;
+                        terminal.Flights[flightNum] = newFlight;
                         Console.WriteLine("Special Request Code updated!");
                         Console.WriteLine("Flight time updated!.");
                         Console.WriteLine($"Flight Number: {flight.FlightNumber}");
@@ -414,7 +413,7 @@ void ModifyFlightDetails(Terminal terminal)
                     string confirm = Console.ReadLine()?.ToUpper();
                     if (confirm == "Y")
                     {
-                        if (!flightDict.ContainsKey(flightNum))
+                        if (!terminal.Flights.ContainsKey(flightNum))
                         {
                             Console.WriteLine($"Flight {flightNum} not found.");
                             return;
@@ -422,11 +421,11 @@ void ModifyFlightDetails(Terminal terminal)
 
                     bool flightFound = false;
 
-                    foreach (var kvp in flightDict.ToList()) // Convert to list to allow removal
+                    foreach (var kvp in terminal.Flights.ToList()) // Convert to list to allow removal
                     {
                         if (kvp.Value.FlightNumber == flightNum)
                         {
-                            flightDict.Remove(kvp.Key);
+                            terminal.Flights.Remove(kvp.Key);
                             Console.WriteLine($"Flight {flightNum} deleted successfully.");
                             flightFound = true;
                             break; // Prevent modifying dictionary while iterating
@@ -483,25 +482,25 @@ void LoadFlights()
             {
                 Flight addFlight = new DDJBFlight(flightnum, origin, Destination, expectedTime, "Scheduled");
                 terminal.GetAirlineFromFlight(addFlight).AddFlight(addFlight);
-                flightDict.Add(flightnum, addFlight);
+                terminal.AddFlight(addFlight);
             }
             else if (requestCode == "CFFT")
             {
                 Flight addFlight = new CFFTFlight(flightnum, origin, Destination, expectedTime, "Scheduled");
                 terminal.GetAirlineFromFlight(addFlight).AddFlight(addFlight);
-                flightDict.Add(flightnum, addFlight);
+                terminal.AddFlight(addFlight);
             }
             else if (requestCode == "LWTT")
             {
                 Flight addFlight = new LWTTFlight(flightnum, origin, Destination, expectedTime, "Scheduled");
                 terminal.GetAirlineFromFlight(addFlight).AddFlight(addFlight);
-                flightDict.Add(flightnum, addFlight);
+                terminal.AddFlight(addFlight);
             }
             else
             {
                 Flight addFlight = new NORMFlight(flightnum, origin, Destination, expectedTime, "Scheduled");
                 terminal.GetAirlineFromFlight(addFlight).AddFlight(addFlight);
-                flightDict.Add(flightnum, addFlight);
+                terminal.AddFlight(addFlight);
             }
         }
 
@@ -517,7 +516,7 @@ void DisplayInfo()
         "List of Flights for Changi Airport Terminal 5\n" +
         "=============================================\n");
     Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
-    foreach (KeyValuePair<string, Flight> flight in flightDict)
+    foreach (KeyValuePair<string, Flight> flight in terminal.Flights)
     {
         Console.WriteLine("{0, -15}{1,-27}{2,-23}{3,-23}{4,-10}", flight.Key, terminal.GetAirlineFromFlight(flight.Value).Name, flight.Value.Origin, flight.Value.Destination, flight.Value.ExpectedTime);
     }
@@ -533,20 +532,21 @@ void AssignGateToFlight()
     string flightnum = Console.ReadLine();
     Console.Write("Enter the gate name: ");
     string gateName = Console.ReadLine();
-    if (flightDict.ContainsKey(flightnum) && terminal.BoardingGates.ContainsKey(gateName))
+    if (terminal.Flights.ContainsKey(flightnum) && terminal.BoardingGates.ContainsKey(gateName))
     {
         if ((terminal.BoardingGates[gateName].Flight == null))
         {
-            terminal.BoardingGates[gateName].Flight = flightDict[flightnum];
+            terminal.BoardingGates[gateName].Flight = terminal.Flights[flightnum];
+            terminal.Flights[flightnum].Gate = true;
             Console.WriteLine("Flight has been assigned to the gate!");
-            Flight temp = flightDict[flightnum];
+            Flight temp = terminal.Flights[flightnum];
             Console.WriteLine($"Flight Number: {flightnum}");
             Console.WriteLine($"Origin: {temp.Origin}");
             Console.WriteLine($"Destination: {temp.Destination}");
             Console.WriteLine($"Boarding Gate Name: {gateName}");
             if (temp is CFFTFlight)
             {
-                Console.WriteLine("Special Request Code: None");
+                Console.WriteLine("Special Request Code: CFFT");
                 Console.WriteLine("Would you like to update the status of the flight? (Y/N)");
                 string choice = Console.ReadLine();
                 while (true)
@@ -775,14 +775,14 @@ void CreateNewFlight()
         string ans = Console.ReadLine();
         if (ans == "Y")
         {
-            flightDict.Add(flightnum, newFlight);
+            terminal.AddFlight(newFlight);
             CreateNewFlight();
 
 
         }
         else if (ans == "N")
         {
-            flightDict.Add(flightnum, newFlight);
+            terminal.AddFlight(newFlight);
         }
 
     }
@@ -793,12 +793,12 @@ void CreateNewFlight()
         string ans = Console.ReadLine();
         if (ans == "Y")
         {
-            flightDict.Add(flightnum, newFlight);
+            terminal.AddFlight(newFlight);
             CreateNewFlight();
         }
         else if (ans == "N")
         {
-            flightDict.Add(flightnum, newFlight);
+            terminal.AddFlight(newFlight);
         }
     }
     else if (code == "LWTT")
@@ -808,13 +808,13 @@ void CreateNewFlight()
         string ans = Console.ReadLine();
         if (ans == "Y")
         {
-            flightDict.Add(flightnum, newFlight);
+            terminal.AddFlight(newFlight);
             CreateNewFlight();
 
         }
         else if (ans == "N")
         {
-            flightDict.Add(flightnum, newFlight);
+            terminal.AddFlight(newFlight);
         }
     }
     else if (code == "None")
@@ -824,13 +824,13 @@ void CreateNewFlight()
         string ans = Console.ReadLine();
         if (ans == "Y")
         {
-            flightDict.Add(flightnum, newFlight);
+            terminal.AddFlight(newFlight);
             CreateNewFlight();
 
         }
         else if (ans == "N")
         {
-            flightDict.Add(flightnum, newFlight);
+            terminal.AddFlight(newFlight);
         }
     }
     else
@@ -845,7 +845,7 @@ void CreateNewFlight()
 void SortFlights()
 {
     List<Flight> sortList = new List<Flight>();
-    foreach (Flight f in flightDict.Values)
+    foreach (Flight f in terminal.Flights.Values)
     {
         sortList.Add(f);
         sortList.Sort();
@@ -869,7 +869,7 @@ void AdvancedTaskA()
     List<string> assignedFlightNumbers = new List<string>();
 
     // Create a list of all flights
-    List<Flight> flightList = new List<Flight>(flightDict.Values);
+    List<Flight> flightList = new List<Flight>(terminal.Flights.Values);
 
     // Find already assigned flights and populate available gates
     int preAssignedFlightCount = 0;
@@ -938,6 +938,7 @@ void AdvancedTaskA()
         if (assignedGate != null)
         {
             terminal.BoardingGates[assignedGate.GateName].Flight = flight;
+            flight.Gate = true;
             availableGates.Remove(assignedGate);
             Console.WriteLine($"{flight.FlightNumber,-7} {terminal.GetAirlineFromFlight(flight).Name,-19} {flight.Origin,-19} {flight.Destination,-19} {flight.ExpectedTime,-15} {code,-7} {assignedGate.GateName,-15}");
             processedFlightsCount++;
