@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "PRG2-T13-01": {
+      "commandName": "Project"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}

@@ -18,8 +18,10 @@ namespace PRG2_T13_01
         public NORMFlight(string fn, string o, string d, DateTime et,string s = "Scheduled") : base(fn, o, d, et,s) { }
         public override double CalculateFees()
         {
+            double total = base.CalculateFees();
             double RequestFee = 0;
-            return RequestFee;
+            total += RequestFee;
+            return total;
         }
      
         public override string ToString()

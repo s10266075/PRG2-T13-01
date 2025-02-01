@@ -93,84 +93,60 @@ namespace PRG2_T13_01
                     return;
                 }
             }
+            Console.WriteLine("==============================================\nAirline Fees for Changi Airport Terminal 5\n==============================================");
+            Console.WriteLine("{0,-15}{1,-20}{2,-15}{3,-20}{4}","Airline Code","Airline Name","Subtotal Fees", "Discounts", "Final Fees");
+            double total = 0; 
+            double totaldiscount = 0;
+            double grandtotal = 0;
             foreach (Airline a in Airlines.Values)
             {
-                Console.WriteLine($"Airline name: {a.Name}");
-      
-                if (a.Flights.Values.Count > 5)
+                double airlinetotal = a.CalculateFees();
+                double discount = 0;
+                double finalvalue = 0;
+                int count = 1;
+                foreach (BoardingGate b in BoardingGates.Values)
                 {
-                    double discount = 0;
-                    int count = 0;
-                    foreach (Flight f in a.Flights.Values)
+                    if (a.Flights.ContainsValue(b.Flight))
                     {
-                        Console.WriteLine("1");
-                        if (count % 3 == 0 && count > 0)
-                        {
-                            discount += 350;
-                        }
-                        discount += f.CalculateFees() * 0.03;
-                        if (f.ExpectedTime.Hour < 11 || f.ExpectedTime.Hour > 21)
-                        {
-                            discount += 110;
-                        }
-                        if (f.Origin == "Singapore (SGP)")
-                        {
-                            if (f is NORMFlight)
-                            {
-                                discount += 50;
-                            }
-                        }
-                        else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok" || f.Origin == "Tokyo")
-                        {
-                            discount += 25;
-                            if (f is NORMFlight)
-                            {
-                                discount += 50;
-                            }
-                        }
-                        count++;
+                        airlinetotal += b.CalculateFees();
                     }
-                    Console.WriteLine($"Original subtotal: ${a.CalculateFees().ToString("F2")}");
-                    Console.WriteLine($"Total discount: ${discount.ToString("F2")}");
-                    Console.WriteLine($"Total: ${(a.CalculateFees() - discount).ToString("F2")}");
                 }
-                else
+                foreach (Flight f in a.Flights.Values)
                 {
-                    double discount = 0;
-                    int count = 0;
-                    foreach (Flight f in a.Flights.Values)
+                    if (count % 3 == 0 && count > 0)
                     {
-                        if (count % 3 == 0 && count > 0)
-                        {
-                            discount += 350;
-                        }
-                        if (f.ExpectedTime.Hour < 11 || f.ExpectedTime.Hour > 21)
-                        {
-                            discount += 110;
-                        }
-                        if (f.Origin == "Singapore (SGP)")
-                        {
-                            if (f is NORMFlight)
-                            {
-                                discount += 50;
-                            }
-                        }
-                        else if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok (BKK)" || f.Origin == "Tokyo (NRT)")
-                        {
-                            discount += 25;
-                            if (f is NORMFlight)
-                            {
-                                discount += 50;
-                            }
-                        }
-                        count++;
+                        discount += 350;
                     }
-                    Console.WriteLine($"Original subtotal: ${a.CalculateFees().ToString("F2")}");
-                    Console.WriteLine($"Total discount: ${discount.ToString("F2")}");
-                    Console.WriteLine($"Total: ${(a.CalculateFees() - discount).ToString("F2")}\n");
+                    if (f.ExpectedTime.Hour < 11 || f.ExpectedTime.Hour > 21)
+                    {
+                        discount += 110;
+                    }
+                    if (f is NORMFlight)
+                    {
+                        discount += 50;
+                    }
+                    if (f.Origin == "Dubai (DXB)" || f.Origin == "Bangkok (BKK)" || f.Origin == "Tokyo (NRT)")
+                    {
+                        discount += 25;
+                    }
+                    if(a.Flights.Values.Count > 5)
+                    {
+                        discount+=((f.CalculateFees())*0.03);
+                    }
+                    count++;
                 }
+                total += airlinetotal;
+                finalvalue += (airlinetotal - discount);
+                totaldiscount += discount;
+                grandtotal += finalvalue;
+                Console.WriteLine("{0,-15}{1,-20}{2,-15}{3,-20}{4}", a.Code, a.Name, airlinetotal.ToString("C2"), discount.ToString("C2"), finalvalue.ToString("C2"));
             }
+            Console.WriteLine($"Subtotal of all Airline fees: {total.ToString("C2")}");
+            Console.WriteLine($"Subtotal of all Airline discounts: {totaldiscount.ToString("C2")}");
+            Console.WriteLine($"Grand total of Airline fees: {grandtotal.ToString("C2")}");
+            Console.WriteLine($"Percentage of the subtotal discounts over final fees: {((totaldiscount / grandtotal) * 100).ToString("F2")}%");
         }
     }
 }
+
 

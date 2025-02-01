@@ -34,10 +34,6 @@ namespace PRG2_T13_01
         public double CalculateFees()
         {
             double total = 300;
-            if (Flight.Origin == "Singapore (SGP)")
-
-
-            total += Flight.CalculateFees();
             return total;
         }
 
