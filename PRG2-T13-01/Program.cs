@@ -29,6 +29,7 @@ void LoadAirlines()
             string name = parts[0];
             Airline addairline = new Airline(code, name);
             terminal.AddAirline(addairline);
+
         }
     }
 }
@@ -481,22 +482,25 @@ void LoadFlights()
             if (requestCode == "DDJB")
             {
                 Flight addFlight = new DDJBFlight(flightnum, origin, Destination, expectedTime, "Scheduled");
-
+                terminal.GetAirlineFromFlight(addFlight).AddFlight(addFlight);
                 flightDict.Add(flightnum, addFlight);
             }
             else if (requestCode == "CFFT")
             {
                 Flight addFlight = new CFFTFlight(flightnum, origin, Destination, expectedTime, "Scheduled");
+                terminal.GetAirlineFromFlight(addFlight).AddFlight(addFlight);
                 flightDict.Add(flightnum, addFlight);
             }
             else if (requestCode == "LWTT")
             {
                 Flight addFlight = new LWTTFlight(flightnum, origin, Destination, expectedTime, "Scheduled");
+                terminal.GetAirlineFromFlight(addFlight).AddFlight(addFlight);
                 flightDict.Add(flightnum, addFlight);
             }
             else
             {
                 Flight addFlight = new NORMFlight(flightnum, origin, Destination, expectedTime, "Scheduled");
+                terminal.GetAirlineFromFlight(addFlight).AddFlight(addFlight);
                 flightDict.Add(flightnum, addFlight);
             }
         }
@@ -846,7 +850,7 @@ void SortFlights()
         sortList.Add(f);
         sortList.Sort();
     }
-    Console.WriteLine("{0, -15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time", "Status", "Boarding Gate");
+    Console.WriteLine("{0, -15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}","Flight Number","Airline Name","Origin","Destination","Expected Departure/Arrival Time","Status","Boarding Gate");
     string gatename = "Unassigned";
     foreach (Flight f in sortList)
     {
@@ -854,7 +858,7 @@ void SortFlights()
         {
             gatename = terminal.BoardingGates[f.FlightNumber].GateName;
         }
-        Console.WriteLine(" {0, -15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}", f.FlightNumber, terminal.GetAirlineFromFlight(f), f.Origin, f.Destination, f.ExpectedTime, f.Status, gatename);
+        Console.WriteLine("{0,-15}{1,-23}{2,-23}{3,-23}{4,-38}{5,-17}{6,-20}",f.FlightNumber,terminal.GetAirlineFromFlight(f),f.Origin,f.Destination,f.ExpectedTime,f.Status,gatename);
     }
 }
 //advanced feature a
@@ -924,7 +928,7 @@ void AdvancedTaskA()
             if ((code == "CFFT" && gate.SupportsCFFT) ||
                 (code == "DDJB" && gate.SupportsDDJB) ||
                 (code == "LWTT" && gate.SupportsLWTT) ||
-                (code == "NONE" && !gate.SupportsCFFT && !gate.SupportsDDJB && !gate.SupportsLWTT))
+                (code == "None" && !gate.SupportsCFFT && !gate.SupportsDDJB && !gate.SupportsLWTT))
             {
                 assignedGate = gate;
                 break;
