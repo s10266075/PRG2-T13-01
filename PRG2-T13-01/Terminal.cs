@@ -117,7 +117,7 @@ namespace PRG2_T13_01
                     {
                         discount += 350;
                     }
-                    if (f.ExpectedTime.Hour < 11 || f.ExpectedTime.Hour > 21)
+                    if (f.ExpectedTime.Hour < 11 || (f.ExpectedTime.Hour > 20 && f.ExpectedTime.Minute>0))
                     {
                         discount += 110;
                     }
