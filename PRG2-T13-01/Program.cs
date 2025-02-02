@@ -1020,47 +1020,59 @@ while (true)
         "9. Process all unassigned Flights to Boarding Gates\r\n" +
         "0. Exit\r\n" +
         "Please select your option:");
-    int choice = int.Parse(Console.ReadLine());
-    if (choice == 1)
+    try
     {
-        DisplayInfo();
+        int choice = int.Parse(Console.ReadLine());
+        if (choice == 1)
+        {
+            DisplayInfo();
+        }
+        else if (choice == 2)
+        {
+            ListAllBoardingGates(terminal.BoardingGates);
+        }
+        else if (choice == 3)
+        {
+            AssignGateToFlight();
+        }
+        else if (choice == 4)
+        {
+            CreateNewFlight();
+        }
+        else if (choice == 5)
+        {
+            DisplayAirlineFlights(terminal.Airlines, terminal.Flights);
+        }
+        else if (choice == 6)
+        {
+            ModifyFlightDetails(terminal);
+        }
+        else if (choice == 7)
+        {
+            SortFlights();
+        }
+        else if (choice == 8)
+        {
+            AdvancedTaskA();
+        }
+        else if (choice == 9)
+        {
+            DisplayAirlineFees();
+        }
+        else if (choice == 10)
+        {
+            CreateNewAirline();
+        }
+        else if (choice == 0)
+        {
+            Console.WriteLine("Goodbye!");
+            break;
+        }
     }
-    else if (choice == 2)
+    catch (FormatException)
     {
-        ListAllBoardingGates(terminal.BoardingGates);
+        Console.WriteLine("Please enter a number from 1 to 10!");
     }
-    else if (choice == 3)
-    {
-        AssignGateToFlight();
-    }
-    else if (choice == 4)
-    {
-        CreateNewFlight();
-    }
-    else if (choice == 5)
-    {
-        DisplayAirlineFlights(terminal.Airlines, terminal.Flights);
-    }
-    else if (choice == 6)
-    {
-        ModifyFlightDetails(terminal);
-    }
-    else if (choice == 7)
-    {
-        SortFlights();
-    }
-    else if (choice == 8)
-    {
-        DisplayAirlineFees();
-    }
-    else if (choice == 9)
-    {
-        AdvancedTaskA();
-    }
-    else if (choice == 0)
-    {
-        Console.WriteLine("Goodbye!");
-        break;
-    }
+    
 }
 
