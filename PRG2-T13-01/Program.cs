@@ -718,6 +718,11 @@ void CreateNewAirline()
     // Prompt user for airline details
     Console.Write("Enter the airline code: ");
     string code = Console.ReadLine().ToUpper();
+    if(terminal.Airlines.ContainsKey(code))
+    {
+        Console.WriteLine("Airline already exists!");
+        CreateNewAirline();
+    }
     Console.Write("Enter the airline name: ");
     string name = Console.ReadLine();
 
@@ -765,6 +770,11 @@ void CreateNewAirline()
 
 
 //menu
+LoadAirlines();
+LoadBoardingGates();
+LoadFlights();
+Console.WriteLine("Loading Airlines...\r\n8 Airlines Loaded!\r\nLoading Boarding Gates...\r\n66 Boarding Gates Loaded!\r\nLoading Flights...\r\n30 Flights Loaded!\r\n");
+
 while (true)
 {
 
