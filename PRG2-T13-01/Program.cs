@@ -52,8 +52,6 @@ void LoadBoardingGates()
         }
     }
 }
-LoadAirlines();
-LoadBoardingGates();
 //feature 4
 
 void ListAllBoardingGates(Dictionary<string, BoardingGate> boardingGates)
@@ -336,7 +334,7 @@ void ModifyFlightDetails(Terminal terminal)
                         // Replace old flight instance with new one
                         terminal.Flights[flightNum] = newFlight;
                         Console.WriteLine("Special Request Code updated!");
-                        Console.WriteLine("Flight time updated!.");
+                        Console.WriteLine("Flight time updated!");
                         Console.WriteLine($"Flight Number: {flight.FlightNumber}");
                         Console.WriteLine($"Airline Name: {terminal.GetAirlineFromFlight(flight).Name}");
                         Console.WriteLine($"Origin: {flight.Origin}");
@@ -506,9 +504,6 @@ void LoadFlights()
 
     }
 }
-
-
-LoadFlights();
 //feature 3
 void DisplayInfo()
 {
@@ -540,7 +535,6 @@ void AssignGateToFlight()
             {
                 terminal.BoardingGates[gateName].Flight = terminal.Flights[flightnum];
                 terminal.Flights[flightnum].Gate = true;
-                Console.WriteLine("Flight has been assigned to the gate!");
                 Flight temp = terminal.Flights[flightnum];
                 Console.WriteLine($"Flight Number: {flightnum}");
                 Console.WriteLine($"Origin: {temp.Origin}");
@@ -563,21 +557,21 @@ void AssignGateToFlight()
                                 {
                                     temp.Status = "Delayed";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                                 else if (statuschoice == 2)
                                 {
                                     temp.Status = "Boarding";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                                 else if (statuschoice == 3)
                                 {
                                     temp.Status = "On Time";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                             }
@@ -585,7 +579,7 @@ void AssignGateToFlight()
                             {
                                 temp.Status = "On Time";
                                 terminal.BoardingGates[gateName].Flight = temp;
-                                Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                 break;
                             }
                         }
@@ -612,21 +606,21 @@ void AssignGateToFlight()
                                 {
                                     temp.Status = "Delayed";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                                 else if (statuschoice == 2)
                                 {
                                     temp.Status = "Boarding";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                                 else if (statuschoice == 3)
                                 {
                                     temp.Status = "On Time";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                             }
@@ -634,7 +628,7 @@ void AssignGateToFlight()
                             {
                                 temp.Status = "On Time";
                                 terminal.BoardingGates[gateName].Flight = temp;
-                                Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                 break;
                             }
                         }
@@ -661,21 +655,21 @@ void AssignGateToFlight()
                                 {
                                     temp.Status = "Delayed";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                                 else if (statuschoice == 2)
                                 {
                                     temp.Status = "Boarding";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                                 else if (statuschoice == 3)
                                 {
                                     temp.Status = "On Time";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                             }
@@ -683,7 +677,7 @@ void AssignGateToFlight()
                             {
                                 temp.Status = "On Time";
                                 terminal.BoardingGates[gateName].Flight = temp;
-                                Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                 break;
                             }
                         }
@@ -710,21 +704,21 @@ void AssignGateToFlight()
                                 {
                                     temp.Status = "Delayed";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                                 else if (statuschoice == 2)
                                 {
                                     temp.Status = "Boarding";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                                 else if (statuschoice == 3)
                                 {
                                     temp.Status = "On Time";
                                     terminal.BoardingGates[gateName].Flight = temp;
-                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                    Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                     break;
                                 }
                             }
@@ -732,7 +726,7 @@ void AssignGateToFlight()
                             {
                                 temp.Status = "On Time";
                                 terminal.BoardingGates[gateName].Flight = temp;
-                                Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
+                                Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}!");
                                 break;
                             }
                         }
@@ -1028,6 +1022,11 @@ void CreateNewAirline()
 {
     Console.Write("Enter the airline code: ");
     string code = Console.ReadLine().ToUpper();
+    if(terminal.Airlines.ContainsKey(code))
+    {
+        Console.WriteLine("Airline already exists!");
+        CreateNewAirline();
+    }
     Console.Write("Enter the airline name: ");
     string name = Console.ReadLine();
     Airline newairline = new Airline(code, name);
@@ -1041,7 +1040,7 @@ void CreateNewAirline()
     }
     else if (choice == "N")
     {
-        Console.WriteLine("Would you like the create another airline?");
+        Console.WriteLine("Would you like to create another airline? (Y/N)");
         string choice1 = Console.ReadLine().ToUpper();
         if (choice1 == "Y")
         {
@@ -1067,6 +1066,11 @@ void CreateNewAirline()
 
 
 //menu
+LoadAirlines();
+LoadBoardingGates();
+LoadFlights();
+Console.WriteLine("Loading Airlines...\r\n8 Airlines Loaded!\r\nLoading Boarding Gates...\r\n66 Boarding Gates Loaded!\r\nLoading Flights...\r\n30 Flights Loaded!\r\n");
+
 while (true)
 {
 
