@@ -257,7 +257,7 @@ void ModifyFlightDetails(Terminal terminal)
                         break;
 
                     case "3": // Modify Special Request Code
-                        Console.Write("Enter new Special Request Code (CFFT/DDJB/LWTT/NONE): ");
+                        Console.Write("Enter new Special Request Code (CFFT/DDJB/LWTT/None: ");
                         string specialCode = Console.ReadLine().ToUpper();
 
                         // Validate input
