@@ -56,9 +56,8 @@ void LoadBoardingGates()
         }
     }
 }
-// Load airlines and boarding gates when the program starts
-LoadAirlines();
-LoadBoardingGates();
+
+
 //feature 4
 // Displays a list of all boarding gates and their assigned flights.
 void ListAllBoardingGates(Dictionary<string, BoardingGate> boardingGates)
@@ -371,8 +370,7 @@ void LoadFlights()
     }
 }
 
-// Call the function to load flights on program startup
-LoadFlights();
+
 
 //feature 3
 // Function to display all flights in the terminal
@@ -770,6 +768,7 @@ void CreateNewAirline()
 
 
 //menu
+//load airlines, boarding gates and flights
 LoadAirlines();
 LoadBoardingGates();
 LoadFlights();
