@@ -158,7 +158,9 @@ void DisplayAirlineFlights(Dictionary<string, Airline> airlines, Dictionary<stri
     }
 
     // Display all flights for the selected airline
+    Console.WriteLine("=============================================");
     Console.WriteLine($"List of Flights for {airlineName}");
+    Console.WriteLine("=============================================");
     Console.WriteLine("{0,-15} {1,-25} {2,-25} {3,-25} {4,-15}",
                     "Flight Number", "Airline Name", "Origin", "Destination", "Departure/Arrival Time");
 
@@ -768,7 +770,7 @@ void CreateNewAirline()
 
 
 //menu
-//load airlines, boarding gates and flights
+//load airlines, boarding gates and flight
 LoadAirlines();
 LoadBoardingGates();
 LoadFlights();
