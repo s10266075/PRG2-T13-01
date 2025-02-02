@@ -160,7 +160,7 @@ void ModifyFlightDetails(Terminal terminal)
     if (!terminal.Flights.ContainsKey(flightNum))
     {
         Console.WriteLine("Error: Flight not found.");
-        return;
+        ModifyFlightDetails(terminal);
     }
 
     Flight flight = terminal.Flights[flightNum];
@@ -735,10 +735,6 @@ void AssignGateToFlight()
                                 Console.WriteLine($"Flight {temp.FlightNumber} has been assigned to Boarding Gate {gateName}");
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("Invalid option!");
-                            }
                         }
                         catch (FormatException)
                         {
@@ -773,89 +769,114 @@ void CreateNewFlight()
 {
     Console.Write("Enter the flight number: ");
     string flightnum = Console.ReadLine().ToUpper();
-    Console.Write("Enter the origin: ");
-    string origin = Console.ReadLine();
-    Console.Write("Enter the destination: ");
-    string destination = Console.ReadLine();
-    Console.Write("Enter the expected departure/arrival time (dd/mm/yyyy hh:mm): ");
-    DateTime expectedTime = DateTime.Parse(Console.ReadLine());
-    Console.Write("Enter the special request code (DDJB/CFFT/LWTT/None): ");
-    string code = Console.ReadLine();
-    if (code == "DDJB")
+    try
     {
-        Flight newFlight = new DDJBFlight(flightnum, origin, destination, expectedTime);
-        Console.WriteLine("Would you like to add another flight (Y/N):");
-        string ans = Console.ReadLine().ToUpper();
-        if (ans == "Y")
+        string[] parts = flightnum.Split(" ");
+        Airline a = terminal.Airlines[parts[0]];
+        Console.Write("Enter the origin: ");
+        string origin = Console.ReadLine();
+        Console.Write("Enter the destination: ");
+        string destination = Console.ReadLine();
+        Console.Write("Enter the expected departure/arrival time (dd/mm/yyyy hh:mm): ");
+        try
         {
-            terminal.AddFlight(newFlight);
+            DateTime expectedTime = DateTime.Parse(Console.ReadLine());
+            Console.Write("Enter the special request code (DDJB/CFFT/LWTT/None): ");
+            string code = Console.ReadLine().ToUpper();
+            if (code == "DDJB")
+            {
+                Flight newFlight = new DDJBFlight(flightnum, origin, destination, expectedTime);
+                Console.WriteLine("Would you like to add another flight (Y/N):");
+                string ans = Console.ReadLine().ToUpper();
+                if (ans == "Y")
+                {
+                    terminal.AddFlight(newFlight);
+                    terminal.GetAirlineFromFlight(newFlight).AddFlight(newFlight);
+                    CreateNewFlight();
+
+
+                }
+                else if (ans == "N")
+                {
+                    terminal.AddFlight(newFlight);
+                    terminal.GetAirlineFromFlight(newFlight).AddFlight(newFlight);
+                }
+
+            }
+            else if (code == "CFFT")
+            {
+                Flight newFlight = new CFFTFlight(flightnum, origin, destination, expectedTime);
+                Console.WriteLine("Would you like to add another flight (Y/N):");
+                string ans = Console.ReadLine().ToUpper();
+                if (ans == "Y")
+                {
+                    terminal.AddFlight(newFlight);
+                    terminal.GetAirlineFromFlight(newFlight).AddFlight(newFlight);
+                    CreateNewFlight();
+                }
+                else if (ans == "N")
+                {
+                    terminal.AddFlight(newFlight);
+                    terminal.GetAirlineFromFlight(newFlight).AddFlight(newFlight);
+                }
+            }
+            else if (code == "LWTT")
+            {
+                Flight newFlight = new LWTTFlight(flightnum, origin, destination, expectedTime);
+                Console.WriteLine("Would you like to add another flight (Y/N):");
+                string ans = Console.ReadLine().ToUpper();
+                if (ans == "Y")
+                {
+                    terminal.AddFlight(newFlight);
+                    terminal.GetAirlineFromFlight(newFlight).AddFlight(newFlight);
+                    CreateNewFlight();
+
+                }
+                else if (ans == "N")
+                {
+                    terminal.AddFlight(newFlight);
+                    terminal.GetAirlineFromFlight(newFlight).AddFlight(newFlight);
+                }
+            }
+            else if (code == "NONE")
+            {
+                Flight newFlight = new NORMFlight(flightnum, origin, destination, expectedTime);
+                Console.WriteLine("Would you like to add another flight (Y/N):");
+                string ans = Console.ReadLine().ToUpper();
+                if (ans == "Y")
+                {
+                    terminal.AddFlight(newFlight);
+                    terminal.GetAirlineFromFlight(newFlight).AddFlight(newFlight);
+                    CreateNewFlight();
+
+                }
+                else if (ans == "N")
+                {
+                    terminal.AddFlight(newFlight);
+                    terminal.GetAirlineFromFlight(newFlight).AddFlight(newFlight);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid special request code!");
+                CreateNewFlight();
+            }
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid date format!");
             CreateNewFlight();
-
-
-        }
-        else if (ans == "N")
-        {
-            terminal.AddFlight(newFlight);
-        }
-
-    }
-    else if (code == "CFFT")
-    {
-        Flight newFlight = new CFFTFlight(flightnum, origin, destination, expectedTime);
-        Console.WriteLine("Would you like to add another flight (Y/N):");
-        string ans = Console.ReadLine().ToUpper();
-        if (ans == "Y")
-        {
-            terminal.AddFlight(newFlight);
-            CreateNewFlight();
-        }
-        else if (ans == "N")
-        {
-            terminal.AddFlight(newFlight);
         }
     }
-    else if (code == "LWTT")
+    catch (KeyNotFoundException)
     {
-        Flight newFlight = new LWTTFlight(flightnum, origin, destination, expectedTime);
-        Console.WriteLine("Would you like to add another flight (Y/N):");
-        string ans = Console.ReadLine().ToUpper();
-        if (ans == "Y")
-        {
-            terminal.AddFlight(newFlight);
-            CreateNewFlight();
-
-        }
-        else if (ans == "N")
-        {
-            terminal.AddFlight(newFlight);
-        }
-    }
-    else if (code == "None")
-    {
-        Flight newFlight = new NORMFlight(flightnum, origin, destination, expectedTime);
-        Console.WriteLine("Would you like to add another flight (Y/N):");
-        string ans = Console.ReadLine().ToUpper();
-        if (ans == "Y")
-        {
-            terminal.AddFlight(newFlight);
-            CreateNewFlight();
-
-        }
-        else if (ans == "N")
-        {
-            terminal.AddFlight(newFlight);
-        }
-    }
-    else
-    {
-        Console.WriteLine("Invalid special request code!");
+        Console.WriteLine("Airline not found!");
         CreateNewFlight();
     }
 }
 
-
-//feature 9
-void SortFlights()
+    //feature 9
+    void SortFlights()
 {
     List<Flight> sortList = new List<Flight>();
     foreach (Flight f in terminal.Flights.Values)
@@ -1002,6 +1023,47 @@ void DisplayAirlineFees()
     terminal.PrintAirlineFees();
 }
 
+//bonus feature 1
+void CreateNewAirline()
+{
+    Console.Write("Enter the airline code: ");
+    string code = Console.ReadLine().ToUpper();
+    Console.Write("Enter the airline name: ");
+    string name = Console.ReadLine();
+    Airline newairline = new Airline(code, name);
+    terminal.AddAirline(newairline);
+    Console.WriteLine("Airline added successfully!");
+    Console.WriteLine("Would you like to add flights to this airline? (Y/N)");
+    string choice = Console.ReadLine().ToUpper();
+    if (choice == "Y")
+    {
+        CreateNewFlight();
+    }
+    else if (choice == "N")
+    {
+        Console.WriteLine("Would you like the create another airline?");
+        string choice1 = Console.ReadLine().ToUpper();
+        if (choice1 == "Y")
+        {
+            CreateNewAirline();
+        }
+        else if (choice1 == "N")
+        {
+            return;
+        }
+        else
+        {
+            Console.WriteLine("Invalid choice!");
+            CreateNewAirline();
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid choice!");
+        CreateNewAirline();
+    }
+}
+
 
 
 //menu
@@ -1011,16 +1073,17 @@ while (true)
     Console.WriteLine("=============================================\r\n" +
         "Welcome to Changi Airport Terminal 5\r\n" +
         "=============================================\r\n" +
-        "1. List All Flights\r\n" +
-        "2. List Boarding Gates\r\n" +
-        "3. Assign a Boarding Gate to a Flight\r\n" +
-        "4. Create Flight\r\n" +
-        "5. Display Airline Flights\r\n" +
-        "6. Modify Flight Details\r\n" +
-        "7. Display Flight Schedule\r\n" +
-        "8. Display Airline Fees\r\n" +
-        "9. Process all unassigned Flights to Boarding Gates\r\n" +
-        "0. Exit\r\n" +
+        "1.  List All Flights\r\n" +
+        "2.  List Boarding Gates\r\n" +
+        "3.  Assign a Boarding Gate to a Flight\r\n" +
+        "4.  Create Flight\r\n" +
+        "5.  Display Airline Flights\r\n" +
+        "6.  Modify Flight Details\r\n" +
+        "7.  Display Flight Schedule\r\n" +
+        "8.  Process all unassigned Flights to Boarding Gates\r\n" +
+        "9.  Display Airline fees\r\n" +
+        "10. Create New Airline\r\n" +
+        "0.  Exit\r\n" +
         "Please select your option:");
     int choice = int.Parse(Console.ReadLine());
     if (choice == 1)
@@ -1053,11 +1116,15 @@ while (true)
     }
     else if (choice == 8)
     {
-        DisplayAirlineFees();
+        AdvancedTaskA();
     }
     else if (choice == 9)
     {
-        AdvancedTaskA();
+        DisplayAirlineFees();
+    }
+    else if (choice == 10)
+    {
+        CreateNewAirline();
     }
     else if (choice == 0)
     {
